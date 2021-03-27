@@ -5,16 +5,18 @@ import ShopItem from '../../components/shop-item/ShopitemComponent';
 import s from './RoomPage.module.scss'
 
 const RoomPage = (props) => {
+    const roomid = props.match.params.roomId
     debugger
     return (
-        <div className={s.RoomPagePage}>
-            hello Rom Page
-{/* {props.shopItemsState.map((el)=>{
-        return (
-
-            <ShopItem key={el.id} {...el}/>
-            )
-    })} */}
+        <div className={s.collectionPage}>
+            <h2 className={s.title}>{props.title}</h2>
+            <div className={s.items}>
+                {/* {
+                    props.items.map(item=>{
+                        return 
+                    })
+                } */}
+            </div>
         </div>
     )
 }

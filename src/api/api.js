@@ -26,7 +26,7 @@ export const authAPI = {
     },
     async register(email, password,  nume,prenume ) {
         debugger
-        return await axios.post(`https://quiet-wildwood-41923.herokuapp.com/http://atc2021.bfg-e.tech/api/register/`,{ email:email, parola:password,  nume:nume,prenume:prenume });
+        return await axios.get(`https://quiet-wildwood-41923.herokuapp.com/http://atc2021.bfg-e.tech/api/register/?email=${email}&parola=${password}&nume=${nume}&prenume=${prenume}`);
     },
     async login(email, password ) {
         debugger
