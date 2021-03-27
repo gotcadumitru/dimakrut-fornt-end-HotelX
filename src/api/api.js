@@ -1,4 +1,6 @@
-import * as axios from 'axios';
+// import * as axios from 'axios';
+
+import axios from "axios"
 
 export const ApartamentsAPI = {
     async getApartments( numberOfApatments = 6) {
@@ -9,18 +11,44 @@ export const ApartamentsAPI = {
 
 export const authAPI = {
     async me() {
-        debugger
-        let response = await axios.get(`api/auth/me`,)
+        axios.get(`http://atc2021.bfg-e.tech/api/rooms/avable/all`).then(response =>{
             debugger
-        return response;
+           console.log(response)
+           return response
+        }).catch(err=>{
+            debugger
+            console.log(err)
+            
+        })
+        axios.get(`/api/rooms/avable/all`).then(response =>{
+            debugger
+           console.log(response)
+           return response
+        }).catch(err=>{
+            debugger
+            console.log(err)
+            
+        })
+        axios.get(`api/rooms/avable/all`).then(response =>{
+            debugger
+           console.log(response)
+           return response
+        }).catch(err=>{
+            debugger
+            console.log(err)
+            
+        })
+            
+        return 0;
     },
-    async register(email, password, numeleAndPrenumele ) {
-        debugger
-        return await axios.post(`"LINKUL"/api/register/`,{ email:email, password:password, numeleAndPrenumele:numeleAndPrenumele });
-    },
+    // async register(email, password, numeleAndPrenumele ) {
+    //     debugger
+    //     return await axios.post(`"LINKUL"/api/register/`,{ email:email, password:password, numeleAndPrenumele:numeleAndPrenumele });
+    // },
     async login(email, password ) {
         debugger
-        return await axios.post(`"LINKUL"/api/login/`,{ email:email, password:password });
+        const j = await axios.get(`http://atc2021.bfg-e.tech/api/login?email=${email}&password=${password}`)
+        debugger
     },
     async logout() {
         return await axios.delete(`/api/login`);

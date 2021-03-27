@@ -8,7 +8,7 @@ const Homepage = (props)=>{
         <div className="homepage">
             <Directory/>
             <Link to='/shop'>
-            <CustomButton>See All</CustomButton>
+            <CustomButton>See Moore</CustomButton>
             </Link>
         </div>
     )
