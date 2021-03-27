@@ -8,7 +8,8 @@ import './SignUp.scss'
 const SignUp = (props) => {
     const [userData, setUserData] = useState(
         {
-            displayName: '',
+            nume: '',
+            prenume: '',
             email: '',
             password: '',
             confirmPassword: '',
@@ -25,11 +26,12 @@ const SignUp = (props) => {
             alert("Different password")
             return;
         }else{
-            props.register(userData.email,userData.password,userData.displayName);
+            props.register(userData.email,userData.password,userData.nume,userData.prenume);
         }
         setUserData(
                 {
-                    displayName: '',
+                    nume: '',
+                    prenume: '',
                     email: '',
                     password: '',
                     confirmPassword: '',
@@ -41,7 +43,8 @@ const SignUp = (props) => {
             <h2 className='title'>I do not have an account</h2>
             <span>Sign up with email and password</span>
             <form className='sign-up-form' onSubmit={handleSubmit}>
-                <FormInput type='text' name='displayName' value={userData.displayName} changeSubmitData={handleChange} label='Display Name' required />
+                <FormInput type='text' name='nume' value={userData.nume} changeSubmitData={handleChange} label='Name' required />
+                <FormInput type='text' name='prenume' value={userData.prenume} changeSubmitData={handleChange} label='Surname' required />
                 <FormInput type='email' name='email' value={userData.email} changeSubmitData={handleChange} label='Email' required />
                 <FormInput type='text' name='password' value={userData.password} changeSubmitData={handleChange} label='Password' required />
                 <FormInput type='text' name='confirmPassword' value={userData.confirmPassword} changeSubmitData={handleChange} label='Confirm Password' required />

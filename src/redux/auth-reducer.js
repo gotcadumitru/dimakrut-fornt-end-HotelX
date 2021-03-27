@@ -44,8 +44,8 @@ export const getUserData = () => async (dispatch) => {
     }
 }
 
-export const register = (email,password, numeleAndPrenumele) => async (dispatch) => {
-  let data = await authAPI.register(email,password,numeleAndPrenumele)
+export const register = (email,password, nume,prenume) => async (dispatch) => {
+  let data = await authAPI.register(email,password, nume,prenume)
       dispatch(getUserData());
 }
 export const login = (email,password) =>async (dispatch) => {

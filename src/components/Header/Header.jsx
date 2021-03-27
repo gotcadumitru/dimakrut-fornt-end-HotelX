@@ -18,7 +18,7 @@ const Header = (props) => {
 
             <div className="options">
                 <Link className="option" to='/'>{props.currentUser ? props.currentUser.displayName : '' }</Link>
-                <Link className="option" to='/shop'>SHOP</Link>
+                {/* <Link className="option" to='/shop'>SHOP</Link> */}
                 <Link className="option" to='/shop'>CONTACT</Link>
                 { props.currentUser ? 
                 <div onClick={signOut} className="option" to='/'>LOG Out</div>
