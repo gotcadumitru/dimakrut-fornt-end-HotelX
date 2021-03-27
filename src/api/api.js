@@ -47,7 +47,7 @@ export const authAPI = {
     // },
     async login(email, password ) {
         debugger
-        const j = await axios.get(`http://atc2021.bfg-e.tech/api/login?email=${email}&password=${password}`)
+        const j = await axios.get(`http://atc2021.bfg-e.tech/api/login?email=${email}&parola=${password}`)
         debugger
     },
     async logout() {

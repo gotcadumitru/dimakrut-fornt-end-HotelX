@@ -12,10 +12,10 @@ const Signinup=(props)=>{
     return (
         <div className="sign-in-and-sign-up">
             <SignIn />
-            <div class="himage">
+            {/* <div class="himage">
                 <img src={hotelIMG} alt="hotelimg"/>
-            </div>
-            {/* <SignUp/> */}
+            </div> */}
+            <SignUp/>
 
         </div>
     )
