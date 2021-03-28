@@ -3,16 +3,14 @@ import logger from "redux-logger";
 import thunk from "redux-thunk";
 import appReducer from "./app-reducer";
 import authReducer from "./auth-reducer";
-import cartReducer from "./cart-reducer";
-import userReducer from "./user-reducer";
+import roomReducer from "./room-reducer";
 
 
 
 const rootReducer =  combineReducers({
-    user:   userReducer,
-    cart:   cartReducer,
     auth:   authReducer,
     app:    appReducer,
+    roomPage: roomReducer,
 })
 
 const middlewares = [logger,thunk];

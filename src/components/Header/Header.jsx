@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CartIcon from '../cart-item/cart-icon/CartIcon';
-import CartDropDown from '../cart-item/CartDropDown/CartDropDown';
+import { logout } from '../../redux/auth-reducer';
 import Logo from './../../assets/images/logo.png'
 import './Header.scss'
 
 const Header = (props) => {
     const signOut = ()=>{
+        props.logout();
     }
 
     return (
@@ -20,13 +20,11 @@ const Header = (props) => {
                 <Link className="option" to='/'>{props.currentUser ? props.currentUser.displayName : '' }</Link>
                 {/* <Link className="option" to='/shop'>SHOP</Link> */}
                 <Link className="option" to='/shop'>CONTACT</Link>
-                { props.currentUser ? 
+                { props.user.userID ? 
                 <div onClick={signOut} className="option" to='/'>LOG Out</div>
                 :
                 <Link className="option" to='/sign'>LOG IN</Link>
             }
-            <CartIcon/>
-            {props.isCartDropDownShow && <CartDropDown/>}
             </div>
         </div>
     )
@@ -37,11 +35,9 @@ const Header = (props) => {
 
 const mapStateToProps = (state)=>{
     return {
-        currentUser:state.user.currentUser,
-        isCartDropDownShow:state.cart.isCartDropDownShow,
-
+        user:state.auth,
     }
 }
 
 
-export default connect(mapStateToProps,)(Header);
+export default connect(mapStateToProps,{logout})(Header);

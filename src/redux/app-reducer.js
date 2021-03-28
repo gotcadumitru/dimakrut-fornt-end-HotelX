@@ -24,6 +24,7 @@ const initializedSuccess = () => {
   type: INITIALIZED_SUCCESS,
   }
 }
+
 export const initializeApp = () =>async (dispatch) => {
   const promise = dispatch(getUserData())
   await Promise.all([promise])
