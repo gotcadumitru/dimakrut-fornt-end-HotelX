@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import CustomButton from '../../components/custom-button/CustomButton';
+import Loader from '../../components/Loader/Loader';
 import RoomItem from '../../components/room-item/RoomItem';
 import { getOneRoom } from '../../redux/room-reducer';
 import s from './RoomPage.module.scss'
 import RoomPageForm from './RoomPageForm/RoomPageForm';
-import '../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import Loader from 'react-loader-spinner';
 
 const RoomPage = (props) => {
   const roomid = props.match.params.roomId;
@@ -40,13 +38,7 @@ const RoomPage = (props) => {
 
   if (!props.room) {
     return (
-      <Loader
-      type="TailSpin"
-      color="#000000"
-      height={100}
-      width={100}
-      timeout={3000}
-    />
+      <Loader/>
       )
   }
 
