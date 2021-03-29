@@ -5,7 +5,7 @@ import CustomButton from '../../components/custom-button/CustomButton';
 import Rooms from '../../components/rooms/Rooms';
 import { setRooms,clearRooms } from '../../redux/room-reducer';
 import s from './homePage.module.scss';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import '../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Loader from 'react-loader-spinner';
 
 

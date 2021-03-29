@@ -6,8 +6,8 @@ import RoomItem from '../../components/room-item/RoomItem';
 import { getOneRoom } from '../../redux/room-reducer';
 import s from './RoomPage.module.scss'
 import RoomPageForm from './RoomPageForm/RoomPageForm';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import '../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 
 const RoomPage = (props) => {
   const roomid = props.match.params.roomId;
