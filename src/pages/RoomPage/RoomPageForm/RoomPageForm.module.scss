@@ -1,9 +1,22 @@
-.sign-up{
+.select{
     display: flex;
     flex-direction: column;
     width: 380px;
 
-    .title{
-        margin: 10px 0;
+        .title{
+            margin: 0;
+        }
+    .btns{
+        display: flex;
+        justify-content: space-between;
     }
+    form{
+
+        .error{
+            color: red;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            
+        }
+    } 
 }

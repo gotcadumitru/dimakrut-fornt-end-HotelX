@@ -1,11 +1,50 @@
 .collectionPage {
     display: flex;
+    width: 100%;
     // justify-content: space-between;
     flex-wrap: wrap;
 
+      .roomInfo{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        .roomItem{
+          width: 40%;
+          
+          .loremText{
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            span{
+            }
+          }
+          .aboutItems{
+            border: 1px solid black;  
+          
+            .aboutItem{
+              margin: 40px 0;
+              font-size: 1.5em;
+              display: flex;
+              justify-content: space-around;
+              .aboutText{
+                width: 60%;
+              }
+              .aboutInfo{
+                text-align: center;
+                width: 20%;
+              }
+            }
+            .aboutItem:first-child{
+              margin-top: 5px;
+            }
+            .aboutItem:last-child{
+              margin-bottom: 5px;
+            }
+          }
+        }
+      
+      }
 
       & .collectionItem {
         margin-bottom: 30px;
       }
-    }
-  
+}

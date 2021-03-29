@@ -25,7 +25,7 @@ const roomReducer = (state = initialState, action) => {
     case GET_ONE_ROOM:
       return {
         ...state,
-        oneRoom: state.rooms.find(room => room.id==action.roomId),
+        oneRoom: action.roomId,
       }
 
     default:
@@ -60,7 +60,8 @@ export const clearRooms = () =>async (dispatch) => {
     dispatch(clearRoomsAction());
 }
 export const getOneRoom = (roomid) =>async (dispatch) => {
-    dispatch(getOneRoomAction(roomid));
+    const oneRoom = await roomAPI.getOneRoom(roomid);
+    dispatch(getOneRoomAction(oneRoom));
 }
 
 

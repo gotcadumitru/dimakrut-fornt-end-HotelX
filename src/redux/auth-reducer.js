@@ -8,11 +8,12 @@ let initialState = {
   name: null,
   surname: null,
   isAuth: false,
+  roomID: null,
+  drept: null,
 }
 
 
 const authReducer = (state = initialState, action) => {
-
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -26,7 +27,7 @@ const authReducer = (state = initialState, action) => {
   }
 }
 
-const setUserData = (userID, email, name, surname, isAuth) => {
+const setUserData = (userID,drept, email, name, surname,roomID, isAuth) => {
   return {
     type: SET_USER_DATA,
     data: {
@@ -35,6 +36,8 @@ const setUserData = (userID, email, name, surname, isAuth) => {
       name,
       surname,
       isAuth,
+      drept,
+      roomID,
     }
   }
 }
@@ -43,21 +46,17 @@ export const getUserData = () => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('user'))
   if(user){
     let data = await authAPI.getUserData(user.email, user.password);
-    if(data.data == 'incorect auth data'){
+    if(data.data === 'incorect auth data'){
       logout();
-    }else{
+    }
+    else{
+      const [user,roomNotFinit] = data.data.split(',[');
+      let roomID = JSON.parse(`[${roomNotFinit}`)[0];
+      roomID = roomID === undefined ? -1 : roomID;
 
-      const userdat = data.data.replace('undefined','').replace('[','').replace(']','');
-      let j='';
-      for(let i =0; i<userdat.length; i++){
-        if(i!==141){
-          j+=userdat[i];
-        }
-      }
-      
-      const userData = JSON.parse(j);
+      const userData = JSON.parse(user);
       const {drept,email,id,nume,prenume} = userData
-      dispatch(setUserData(id,email,nume,prenume,true));
+      dispatch(setUserData(id,drept,email,nume,prenume,roomID,true));
 
     }
     

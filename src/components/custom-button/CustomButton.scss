@@ -21,14 +21,8 @@
       border: 1px solid black;
       cursor: pointer;
     }
-    &.googleSignIn{
-      background-color: #4285f4;
-      color: white;
-
-      &:hover{
-        background-color: #357ae8;
-        border: none;
-      }
+    &.disabled{
+      cursor: not-allowed;
     }
     &.inverted{
       background-color: white;
