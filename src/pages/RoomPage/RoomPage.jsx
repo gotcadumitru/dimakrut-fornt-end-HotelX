@@ -6,7 +6,8 @@ import RoomItem from '../../components/room-item/RoomItem';
 import { getOneRoom } from '../../redux/room-reducer';
 import s from './RoomPage.module.scss'
 import RoomPageForm from './RoomPageForm/RoomPageForm';
-import ClipLoader from "react-spinners/ClipLoader";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 const RoomPage = (props) => {
   const roomid = props.match.params.roomId;
@@ -39,7 +40,13 @@ const RoomPage = (props) => {
 
   if (!props.room) {
     return (
-      <ClipLoader/>
+      <Loader
+      type="TailSpin"
+      color="#000000"
+      height={100}
+      width={100}
+      timeout={3000}
+    />
       )
   }
 

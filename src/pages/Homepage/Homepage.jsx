@@ -5,7 +5,9 @@ import CustomButton from '../../components/custom-button/CustomButton';
 import Rooms from '../../components/rooms/Rooms';
 import { setRooms,clearRooms } from '../../redux/room-reducer';
 import s from './homePage.module.scss';
-import ClipLoader from "react-spinners/ClipLoader";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+
 
 const Homepage = (props)=>{
     useEffect(() => {        
@@ -18,8 +20,14 @@ const Homepage = (props)=>{
 
     if(props.rooms.length===0){
         return (
-            <ClipLoader/>
-        )
+<Loader
+        type="TailSpin"
+        color="#000000"
+        height={100}
+        width={100}
+        timeout={3000}
+      />
+            )
     }
     return (
         <div className="homepage">
