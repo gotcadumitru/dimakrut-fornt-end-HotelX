@@ -50,11 +50,9 @@ export const getUserData = () => async (dispatch) => {
       logout();
     }
     else{
-      const [user,roomNotFinit] = data.data.split(',[');
-      let roomID = JSON.parse(`[${roomNotFinit}`)[0];
-      roomID = roomID === undefined ? -1 : roomID;
+      let [userData,roomID] = data.data;
+      roomID = roomID == false ? -1 : roomID;
 
-      const userData = JSON.parse(user);
       const {drept,email,id,nume,prenume} = userData
       dispatch(setUserData(id,drept,email,nume,prenume,roomID,true));
 

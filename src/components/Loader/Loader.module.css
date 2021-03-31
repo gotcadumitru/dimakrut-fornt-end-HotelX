@@ -1,4 +1,9 @@
+.loaderContainer{
+    width: 100%;
+    display: flex;
+}
 .loader {
+    margin: 0 auto;
     border: 10px solid #f3f3f3;
     border-radius: 50%;
     border-top: 10px solid black;

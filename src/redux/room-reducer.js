@@ -4,11 +4,13 @@ import { roomAPI } from "../api/api";
 const SER_ROOMS = 'SER_ROOMS';
 const CLEAR_ROOMS = 'CLEAR_ROOMS';
 const GET_ONE_ROOM = 'GET_ONE_ROOM';
+
 let initialState = {
   rooms:[],
   oneRoom: null,
+  section: 1,
+  numberOfRooms:null,
 }
-
 
 const roomReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,11 +18,15 @@ const roomReducer = (state = initialState, action) => {
       return {
         ...state,
         rooms: [...state.rooms, ...action.rooms],
+        section: state.section+1,
+
       }
     case CLEAR_ROOMS:
       return {
         ...state,
         rooms: [],
+        section: 1,
+
       }
     case GET_ONE_ROOM:
       return {
@@ -50,10 +56,11 @@ const getOneRoomAction = (roomid) => {
   roomId: roomid,
   }
 }
-export const setRooms = () =>async (dispatch) => {
-  const rooms = await roomAPI.getRooms();
+export const setRooms = (numberOfRooms) =>async (dispatch,getState) => {
+  const section = getState().roomPage.section;
+  const rooms = await roomAPI.getRooms(section,numberOfRooms);
   if(rooms){
-    dispatch(setRoomsAction(rooms));
+    dispatch(setRoomsAction(rooms,section));
   }
 }
 export const clearRooms = () =>async (dispatch) => {

@@ -36,11 +36,29 @@ const RoomPage = (props) => {
     return <RoomItem imageUrl={props.room[key]} />
   }) : '';
 
+  let rentedPeriods;
+  let rentedComponent;
+  if(props.room){
+    rentedPeriods = JSON.parse(props.room.rented);
+
+    rentedComponent = rentedPeriods.map(item=>{
+      const startDate = new Date(item[0]).toDateString();
+      const endDate = new Date(item[1]).toDateString();
+      return (
+      <div className={s.aboutItem}>
+        <span className={s.rented}>From : {startDate}</span> <span className={s.rented}>To: {endDate}</span>
+      </div>)
+      
+    })
+    
+  }
   if (!props.room) {
     return (
       <Loader/>
       )
   }
+
+  
 
   return (
     <div className={s.collectionPage}>
@@ -59,11 +77,12 @@ const RoomPage = (props) => {
               <span className={s.aboutText}>Price per night:</span> <span className={s.aboutInfo}>${props.room.pret}</span>
             </div>
             <div className={s.aboutItem}>
-              <span className={s.aboutText}>Max number of Persons:</span> <span className={s.aboutInfo}>{props.room.nr_max_pers}</span>
+              <span className={s.aboutText}>Max number of Persons:</span><span className={s.aboutInfo}>{props.room.nr_max_pers}</span>
             </div>
             <div className={s.aboutItem}>
-              <span className={s.aboutText}>Peroiade in care este ocupata:</span> <span className={s.aboutInfo}>{props.room.nr_max_pers}</span>
+              <span className={s.aboutText}>Peroiade in care este ocupata:</span> <span className={s.aboutInfo}>{rentedPeriods ? rentedPeriods.length : '0'}</span>
             </div>
+            {rentedComponent}
             <div className={s.aboutItem}>
               <span className={s.aboutText}>Marimea camerei:</span> <span className={s.aboutInfo}>{props.room.clasa === 0 ? 'SMALL' : props.room.clasa === 1 ? 'MEDIUM' : props.room.clasa === 2 ? 'BIG' : ''} Size</span>
             </div>
@@ -74,7 +93,7 @@ const RoomPage = (props) => {
         </div>
         <div className={s.roomItem}>
 
-          <RoomPageForm nr_max_pers={props.room.nr_max_pers} roomData={roomData} setRoomData={setRoomData} user={props.user} daysToPay={daysToPay} setDays={setDays} />
+          <RoomPageForm rentPeriods={rentedPeriods ? rentedPeriods : []}  nr_max_pers={props.room.nr_max_pers} roomData={roomData} setRoomData={setRoomData} user={props.user} daysToPay={daysToPay} setDays={setDays} />
         </div>
       </div>
 

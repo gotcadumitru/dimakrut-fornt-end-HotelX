@@ -3,7 +3,9 @@ import s from './Loader.module.css';
 
 const Loader = (props) =>{
     return (
-        <div class={s.loader}></div>
+        <div className={s.loaderContainer}>
+        <div className={s.loader}></div>
+        </div>
     )
 }
 export default Loader;

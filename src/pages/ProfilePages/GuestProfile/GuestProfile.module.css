@@ -1,0 +1,29 @@
+.ThreeRooms{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.btnContainer{
+    width: 100%;
+}
+.btnContainer button{
+    margin: 0 auto;
+}
+.roomImages{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.doorStatus h2{
+    text-align: center;
+}
+.imageContainer{
+    width: 100%;
+    height: 300px;
+}
+.imageContainer img{
+    display: block;
+    max-width: 300px;
+    margin: 0 auto;
+    cursor: pointer;
+}
