@@ -20,7 +20,7 @@ const Header = (props) => {
                 <Link className="option" to='/profile'>{props.user ? props.user.name : '' }</Link>
                 <Link className="option" to='/shop'>CONTACT</Link>
                 { props.user.userID ? 
-                <div onClick={signOut} className="option" to='/'>Log Out</div>
+                <Link onClick={signOut} to='/' className="option">Log Out</Link>
                 :
                 <Link className="option" to='/sign'>LOG IN</Link>
             }

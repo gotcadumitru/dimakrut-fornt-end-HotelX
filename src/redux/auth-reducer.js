@@ -44,6 +44,7 @@ const setUserData = (userID,drept, email, name, surname,roomID, isAuth) => {
 
 export const getUserData = () => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('user'))
+  // debugger
   if(user){
     let data = await authAPI.getUserData(user.email, user.password);
     if(data.data === 'incorect auth data'){

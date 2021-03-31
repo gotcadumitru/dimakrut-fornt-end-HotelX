@@ -6,8 +6,11 @@ import RoomItem from '../../../components/room-item/RoomItem';
 import s from './GuestProfile.module.css';
 import OpenImage from '../../../assets/door/Opened.png';
 import CloseImage from '../../../assets/door/Closed.png';
+import QrScanner from '../../../components/QrCodeScanner/QrScanner';
 
 const GuestProfile = (props) => {
+
+    const [isQrCodeCaneraStarted, setQrCodeCamerastatus] = useState(false);
     // debugger
     useEffect(() => {
         if (props.user.roomID[0][3] != -1) {
@@ -84,16 +87,26 @@ const GuestProfile = (props) => {
                         }
                     </div>
 
-
                     <div className={s.doorStatus}>
                         <h2>Click the button under to {doorst ? 'Open' : 'Close'} the door</h2>
                         <div className={s.imageContainer}>
                             {/* <img onClick={props.handleDoorStatus(!props.room.doorStatus,props.user.roomID[0][3])} src={true ? OpenImage : CloseImage} alt="roomstatus"/> */}
-                            <img onClick={() => { setdorst(!doorst) }} src={doorst ? OpenImage : CloseImage} alt="roomstatus" />
+                    {
+                        isQrCodeCaneraStarted 
+                        ? <div>
+                        <QrScanner/>
+                        <CustomButton onClick={()=>{setQrCodeCamerastatus(false)}}>Cancel Scan</CustomButton>
+                    </div> :
+                        doorst 
+                        ? <img onClick={() => { setQrCodeCamerastatus(true); }} src={OpenImage} alt="roomstatus" /> 
+                        : <img onClick={() => { setdorst(!doorst) }} src={CloseImage} alt="roomstatus" />
+                        
+                    }
                         </div>
                     </div>
                 </div>
             }
+
 
 
         </div>

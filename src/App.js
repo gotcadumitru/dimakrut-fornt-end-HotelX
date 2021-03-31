@@ -3,6 +3,7 @@ import { connect} from 'react-redux';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
+import QrScanner from './components/QrCodeScanner/QrScanner';
 import CheckIn from './pages/Checkpage/Check-in/CheckIn';
 import CheckOut from './pages/Checkpage/Check-out/CheckOut';
 import Homepage from './pages/Homepage/Homepage';
@@ -19,7 +20,6 @@ const App =(props) => {
   },[])
   return (
     <div>
-
       <BrowserRouter>
 
       <Header/>

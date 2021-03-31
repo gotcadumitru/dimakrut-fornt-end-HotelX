@@ -11,7 +11,7 @@ const Profile = (props)=>{
     return (
         <div>
         {    props.user.drept === 'admin' ? <UserProfile handleDoorStatus={props.handleDoorStatus} clearRooms={props.clearRooms} setRooms={props.setRooms} setUserRoom={props.setUserRoom} userRoom={props.userRoom} rooms={props.rooms} user={props.user}/> : '' }
-        {    props.user.drept === 'user' ? <AdminProfile user={props.user}/> : '' }
+        {    props.user.drept === 'guest' ? <AdminProfile user={props.user}/> : '' }
         {    props.user.drept === 'cleaner' ? <CleanerProfile user={props.user}/> : '' }
         </div>
     )
