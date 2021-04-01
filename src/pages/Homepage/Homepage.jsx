@@ -30,7 +30,7 @@ const Homepage = (props)=>{
             The HotelX is a modern, elegant 5-star hotel overlooking the sea, perfect for a romantic, charming vacation, in the enchanting setting of CityX and the  SeaX.
             </h1>
             <Rooms rooms={props.rooms}/>
-            { props.isBtnShow && <CustomButton onClick={()=>{props.setRooms(6)}}>See Moore</CustomButton>}
+            { props.isBtnShow ? <CustomButton onClick={()=>{props.setRooms(6)}}>Show Moore</CustomButton>: "Au fort incarcate toate camerele"}
         </div>
     )
 }

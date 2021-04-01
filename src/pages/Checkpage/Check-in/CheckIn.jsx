@@ -5,7 +5,7 @@ import s from './CheckIn.module.scss'
 const CheckIn = (props) => {
     return (
         <div>
-            checkin
+            
         </div>
         )
 }

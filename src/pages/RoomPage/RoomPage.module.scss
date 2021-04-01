@@ -4,6 +4,11 @@
     // justify-content: space-between;
     flex-wrap: wrap;
 
+    .loremText{
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
       .roomInfo{
         display: flex;
         width: 100%;
@@ -11,16 +16,15 @@
         .roomItem{
           width: 40%;
           
-          .loremText{
-            font-size: 1.3em;
-            margin-bottom: 20px;
-          }
           .aboutItems{
             border: 1px solid black;  
-          
+          display: flex;
+          height: 100%;
+          flex-direction: column;
+
             .aboutItem{
-              margin: 40px 0;
               font-size: 1.5em;
+              margin: auto 0;
               display: flex;
               justify-content: space-around;
               .aboutText{
@@ -36,15 +40,16 @@
               }
             }
             .aboutItem:first-child{
-              margin-top: 5px;
+              margin-top: 30px;
             }
             .aboutItem:last-child{
-              margin-bottom: 5px;
+              margin-bottom: 30px;
             }
           }
         }
       
       }
+      
 
       & .collectionItem {
         margin-bottom: 30px;

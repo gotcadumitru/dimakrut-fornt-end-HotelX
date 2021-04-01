@@ -44,12 +44,28 @@ export const roomAPI = {
         return resp.data;
 
     },
+    async getRoomsToClean(sect,number) {
+
+
+        const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/data/all?section=${sect}&number=${number}`);
+        return resp.data;
+
+    },
 
     async getOneRoom(roomId) {
 
         const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/data/${roomId}`);
        
         return resp.data;
+
+    },
+    async userCheckIn(email,password,startDay,endDay,userId,roomId) {
+        debugger
+        const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/rent?start_day=${startDay}&end_day=${endDay}&camera_id=${roomId}&email=${email}&parola=${password}`);
+        
+        debugger
+       
+        return resp;
 
     },
     async changeRoomstatus(roomId,newDoorStatus,email,password,) {

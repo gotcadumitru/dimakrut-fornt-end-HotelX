@@ -1,6 +1,7 @@
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = 'SET_USER_DATA';
+const SET_AUTH_ERROR = 'SET_AUTH_ERROR';
 
 let initialState = {
   userID: null,
@@ -10,6 +11,7 @@ let initialState = {
   isAuth: false,
   roomID: null,
   drept: null,
+  authError: '',
 }
 
 
@@ -21,13 +23,18 @@ const authReducer = (state = initialState, action) => {
         ...action.data,
         isAuth: action.data.isAuth,
       }
+    case SET_AUTH_ERROR:
+      return {
+        ...state,
+        authError: action.error,
+      }
 
     default:
       return state;
   }
 }
 
-const setUserData = (userID,drept, email, name, surname,roomID, isAuth) => {
+const setUserData = (userID,drept, email, name, surname,roomID, rentPeriod,isAuth) => {
   return {
     type: SET_USER_DATA,
     data: {
@@ -37,25 +44,33 @@ const setUserData = (userID,drept, email, name, surname,roomID, isAuth) => {
       surname,
       isAuth,
       drept,
+      rentPeriod,
       roomID,
     }
+  }
+}
+const setAuthError = (error) => {
+  return {
+    type: SET_AUTH_ERROR,
+    error,
   }
 }
 
 export const getUserData = () => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('user'))
-  // debugger
   if(user){
     let data = await authAPI.getUserData(user.email, user.password);
     if(data.data === 'incorect auth data'){
       logout();
     }
     else{
-      let [userData,roomID] = data.data;
-      roomID = roomID == false ? -1 : roomID;
+      let userData = data.data[0];
+      let roomIDarr = data.data[1];
+      const roomID = roomIDarr == false ? -1 : roomIDarr[0][3];
+      const rentPeriod = roomID == -1 ? [] : [roomIDarr[0][0],roomIDarr[0][1]]
 
       const {drept,email,id,nume,prenume} = userData
-      dispatch(setUserData(id,drept,email,nume,prenume,roomID,true));
+      dispatch(setUserData(id,drept,email,nume,prenume,roomID,rentPeriod,true));
 
     }
     
@@ -71,12 +86,16 @@ export const register = (email, password, nume, prenume) => async (dispatch) => 
   dispatch(getUserData());
 }
 export const login = (email, password) => async (dispatch) => {
+  dispatch(setAuthError(""))
   let isUser = await authAPI.login(email, password)
   if (isUser) {
+
     const userJSON = JSON.stringify({ email, password });
     localStorage.setItem('user', userJSON);
+    dispatch(getUserData());
+  }else{
+    dispatch(setAuthError("Incorrect User Data"))
   }
-  dispatch(getUserData());
 }
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('user');

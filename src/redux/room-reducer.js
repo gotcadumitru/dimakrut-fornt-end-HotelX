@@ -86,6 +86,14 @@ export const getOneRoom = (roomid) =>async (dispatch) => {
     const oneRoom = await roomAPI.getOneRoom(roomid);
     dispatch(getOneRoomAction(oneRoom));
 }
+export const userCheckIn = (startDay,endDay,userId,roomId) =>async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  if(user){
+    let data = await roomAPI.userCheckIn(user.email,user.password,startDay,endDay,userId,roomId);
+    debugger
+    dispatch();
+  }
+}
 
 
 

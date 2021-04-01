@@ -6,7 +6,6 @@ import FormInput from '../../../components/form-input/FormInput';
 import s from './RoomPageForm.module.scss'
 
 const RoomPageForm = (props) => {
-
     const [isBtnShow, handleBtnShow] = useState(false);
     const [eroare, setEroare] = useState(props.error);
 
@@ -34,13 +33,13 @@ const RoomPageForm = (props) => {
         e.preventDefault();
         const days = Math.floor((Date.parse(props.roomData.endDay) - Date.parse(props.roomData.startDay)) / 86400000);
         const isFree = checkIdPeriodFree([new Date(props.roomData.startDay).getTime(), new Date(props.roomData.endDay).getTime()], props.rentPeriods)
+        debugger
         if (days <= 0 || !days) {
             setEroare(`Incorrect number of days`);
 
 
         } else if (props.nr_max_pers < props.roomData.nrPersoane) {
             setEroare(`You have selected too many people, maximum in this room:${props.nr_max_pers}`);
-
         } else if (0 >= props.roomData.nrPersoane || !props.roomData.nrPersoane) {
             setEroare(`You have selected incorrect number of people`);
 
@@ -56,6 +55,30 @@ const RoomPageForm = (props) => {
             handleBtnShow(true)
         }
     }
+    let btnCopponent;
+    if (props.user.userID) {
+        if (props.user.roomID === -1) {
+            if (isBtnShow) {
+                btnCopponent = <CustomButton disabled={props.sumaSpreAchitare == 0} onClick={() => { props.userCheckIn(new Date(props.roomData.startDay).getTime(), new Date(props.roomData.endDay).getTime(), props.user.userID, props.roomid) }}>Check-In</CustomButton>
+            } else {
+                btnCopponent = '';
+            }
+        } else {
+            if (isBtnShow) {
+                btnCopponent = 'Deja ai o camera'
+            } else {
+                btnCopponent = '';
+            }
+        }
+
+    } else {
+        if (props.user.userID) {
+            btnCopponent = 'Deja ai o camera';
+        } else {
+
+            btnCopponent = <Link to='/sign'>Please Log in to continue</Link>
+        }
+    }
 
     return (
         <div className={s.select}>
@@ -63,23 +86,51 @@ const RoomPageForm = (props) => {
                 props.user.userID ? <h2 className={s.title}>Make the right choice</h2>
                     : <h2 className={s.title}>Please log into your account before starting to fill out the form </h2>}
             <form>
-                <FormInput type='number' id='nrPersoane' value={props.roomData.nrPersoane} changeSubmitData={handleChange} label='Number of Pers' required />
+                <FormInput
+                    checkRoomInput={true}
+                    type='number'
+                    id='nrPersoane'
+                    value={props.roomData.nrPersoane}
+                    changeSubmitData={handleChange}
+                    label='Number of Pers'
+                    required />
                 Start Day:
-                <FormInput type='date' id='startDay' value={props.roomData.startDay} changeSubmitData={handleChange}  placeholder="dd-mm-yyyy" required />
+                <FormInput
+                    checkRoomInput={true}
+                    type='date'
+                    id='startDay'
+                    value={props.roomData.startDay}
+                    changeSubmitData={handleChange}
+                    placeholder="dd-mm-yyyy"
+                    required />
                 End Day:
-                <FormInput type='date' id='endDay'  value={props.roomData.endDay} changeSubmitData={handleChange} placeholder="dd-mm-yyyy" required />
+                <FormInput
+                    checkRoomInput={true}
+                    type='date'
+                    id='endDay'
+                    value={props.roomData.endDay}
+                    changeSubmitData={handleChange}
+                    placeholder="dd-mm-yyyy"
+                    required />
                 <datalist id="payMethod">
                     <option value="Card" />
                     <option value="Cash" />
                     <option value="Monero" />
                     <option value="Bitcoin" />
                 </datalist>
-                <FormInput list="payMethod" id='payMethod' value={props.roomData.payMethod} label='Pay method' changeSubmitData={handleChange} required />
+                <FormInput
+                    checkRoomInput={true}
+                    list="payMethod"
+                    id='payMethod'
+                    value={props.roomData.payMethod}
+                    label='Pay method'
+                    changeSubmitData={handleChange}
+                    required />
                 {eroare == null ? '' : <div className={s.error}>Eroare:{eroare}</div>}
                 <div className={s.btns}>
                     <CustomButton onClick={handleSubmit} type='submit'>Check price</CustomButton>
                     {
-                        props.user.userID ? isBtnShow && <CustomButton disabled={props.sumaSpreAchitare == 0}>Check-In</CustomButton> : isBtnShow && <Link to='/sign'>Please Log in to continue</Link>
+                        btnCopponent
                     }
                 </div>
             </form>

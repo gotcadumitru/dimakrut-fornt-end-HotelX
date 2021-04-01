@@ -38,6 +38,7 @@ class SignIn extends Component{
             <FormInput type="email" name="email" label="email" changeSubmitData = {this.changeSubmitData} value={this.state.email} required/>
             <FormInput type="password" name="password" label="password" changeSubmitData = {this.changeSubmitData} value={this.state.password}/>            
 
+            {this.props.error && <div className='error'>Error: {this.props.error}</div>}
             <div className='buttons'>
             <CustomButton type="submit" >Submit Form</CustomButton>
             </div>
@@ -50,7 +51,7 @@ class SignIn extends Component{
 
 const mapstateToProps = (state)=>{
     return {
-
+        error:state.auth.authError,
     }
 }
 export default connect(mapstateToProps,{login:login})(SignIn);

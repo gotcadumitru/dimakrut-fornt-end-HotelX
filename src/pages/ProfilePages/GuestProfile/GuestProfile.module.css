@@ -14,7 +14,7 @@
     width: 100%;
     justify-content: space-between;
 }
-.doorStatus h2{
+h2{
     text-align: center;
 }
 .imageContainer{
@@ -26,4 +26,9 @@
     max-width: 300px;
     margin: 0 auto;
     cursor: pointer;
+}
+.error{
+    text-align: center;
+    font-size: 24px;
+    
 }

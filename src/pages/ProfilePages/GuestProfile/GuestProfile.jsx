@@ -9,17 +9,19 @@ import CloseImage from '../../../assets/door/Closed.png';
 import QrScanner from '../../../components/QrCodeScanner/QrScanner';
 
 const GuestProfile = (props) => {
-
+    
     const [isQrCodeCaneraStarted, setQrCodeCamerastatus] = useState(false);
-    // debugger
+    let [isDoorClosed, handleDorStatus] = useState(true);
+    let [error, setError] = useState('');
     useEffect(() => {
-        if (props.user.roomID[0][3] != -1) {
-            props.setUserRoom(props.user.roomID[0][3])
+        if (props.user.roomID!= -1) {
+            props.setUserRoom(props.user.roomID)
         } else {
             props.setRooms(3, 1);
         }
         return () => {
             props.clearRooms();
+            props.clearUserRoom();
         }
     }, []);
 
@@ -31,7 +33,6 @@ const GuestProfile = (props) => {
     }).map(key => {
         return <RoomItem imageUrl={props.userRoom[key]} />
     }) : 'hi';
-    let [doorst, setdorst] = useState(true);
 
     let rentedPeriods;
     let rentedComponent;
@@ -47,22 +48,39 @@ const GuestProfile = (props) => {
                 </div>)
 
         })
+        
+    }
+    const setQrRespunse = (qrScanResponse)=>{
+        if(qrScanResponse == props.user.roomID){
+            const dateNow = new Date().getTime();
+            if( dateNow >= props.user.rentPeriod[0] && dateNow <= props.user.rentPeriod[1] ){
+                handleDorStatus(false);
+                setQrCodeCamerastatus(false);
+                setError('Usa a Fost deschisa cu succes');
+                setTimeout(()=>{
+                    setError('');
 
-        const dateNow = new Date().getDate();
-    
-        // debugger
-        ///aici mai trebuie de lucrat nu e ok
-        rentedPeriods.find(item=>{
-                if (dateNow >= item[0] && dateNow <= item[1] && props.user.userID ==1) {
-    
-                }
-    
-            })
+                },3000)
+
+            }else{
+                setError('La moment nu inchiriati aceasta camera')
+
+            }
+        }else{
+            setError('This is not the qrcode on the yout door');
+        }
     }
 
         
         
+    const clickCloseDoor = ()=>{
+        handleDorStatus(!isDoorClosed); 
+        setError('Usa a fost inchisa cu succes')
+        setTimeout(()=>{
+            setError('')
 
+        },3000)
+    }
 
     return (
         <div>
@@ -76,7 +94,7 @@ const GuestProfile = (props) => {
                         )}
                 </div>
                 <div className={s.btnContainer}>
-                    <CustomButton>Show Moore</CustomButton>
+                    <Link to='/'><CustomButton>Show Moore</CustomButton></Link> 
                 </div>
             </div> :
                 <div>
@@ -87,22 +105,30 @@ const GuestProfile = (props) => {
                         }
                     </div>
 
-                    <div className={s.doorStatus}>
-                        <h2>Click the button under to {doorst ? 'Open' : 'Close'} the door</h2>
+                    <div className={s.isDoorClosedatus}>
+                        { isDoorClosed ? <h2>Click the button under to scan QRcode and Open the door</h2> : <h2>Click the button under to Close the door</h2>}
                         <div className={s.imageContainer}>
-                            {/* <img onClick={props.handleDoorStatus(!props.room.doorStatus,props.user.roomID[0][3])} src={true ? OpenImage : CloseImage} alt="roomstatus"/> */}
+                            {/* <img onClick={props.handleisDoorClosedatus(!props.room.isDoorClosedatus,props.user.roomID)} src={true ? OpenImage : CloseImage} alt="roomstatus"/> */}
                     {
                         isQrCodeCaneraStarted 
                         ? <div>
-                        <QrScanner/>
-                        <CustomButton onClick={()=>{setQrCodeCamerastatus(false)}}>Cancel Scan</CustomButton>
+                        <div> <QrScanner setQrRespunse={setQrRespunse}/></div>
+                        <div className={s.btnContainer}> <CustomButton onClick={()=>{setQrCodeCamerastatus(false); setError('')}}>Cancel Scan</CustomButton></div>
                     </div> :
-                        doorst 
+                         isDoorClosed 
                         ? <img onClick={() => { setQrCodeCamerastatus(true); }} src={OpenImage} alt="roomstatus" /> 
-                        : <img onClick={() => { setdorst(!doorst) }} src={CloseImage} alt="roomstatus" />
+                        : <img onClick={() => { clickCloseDoor() }} src={CloseImage} alt="roomstatus" />
                         
                     }
+                    <div className={s.error}>
+                    {error}
+                    </div>
                         </div>
+                    </div>
+
+
+                    <div className={s.roomInfo}>
+                        
                     </div>
                 </div>
             }
