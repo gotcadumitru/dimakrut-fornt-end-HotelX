@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Loader from '../../components/Loader/Loader';
+import MenuItem from '../../components/menu-item/MenuItem';
 import RoomItem from '../../components/room-item/RoomItem';
 import { getOneRoom,userCheckIn } from '../../redux/room-reducer';
 import CleanerComponent from './CleanerComponent/CleanerComponent';
@@ -9,6 +10,7 @@ import s from './RoomPage.module.scss'
 import RoomPageForm from './RoomPageForm/RoomPageForm';
 
 const RoomPage = (props) => {
+
   const roomid = props.match.params.roomId;
 
 
@@ -28,13 +30,20 @@ const RoomPage = (props) => {
     }
   }, [])
 
+  // const roomItemImg = <div className={s.roomsMenu}>
+  //   {props.room.map((el)=>{
+  //     debugger
+  //       return <MenuItem key={el.id} poza={el} {...el}/>
+  //   })
+  // }
+  // </div>
   const roomItemImg = props.room ? Object.keys(props.room).filter(el => {
     if (el.indexOf('poza') !== -1) {
       return true
     }
     return false
   }).map(key => {
-    return <RoomItem imageUrl={props.room[key]} />
+    return <MenuItem forImages={true} key={key} id={roomid} poza={props.room[key]} />
   }) : '';
 
   let rentedPeriods;

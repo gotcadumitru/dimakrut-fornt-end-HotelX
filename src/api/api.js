@@ -2,15 +2,6 @@
 
 import axios from "axios"
 
-export const ApartamentsAPI = {
-    async getApartments( numberOfApatments = 6) {
-
-        let response = await axios.get(`http://atc2021.bfg-e.tech/count=${numberOfApatments}`)
-
-        return response.data
-    },
-}
-
 export const authAPI = {
 
     async getUserData(email,password) {
@@ -44,6 +35,13 @@ export const roomAPI = {
         return resp.data;
 
     },
+    async getAllRoomsAPI() {
+
+        const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/data/all`);
+        return resp.data;
+
+    },
+    
     async getRoomsToClean(sect,number) {
 
 

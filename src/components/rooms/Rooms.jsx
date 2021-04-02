@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import CustomButton from '../custom-button/CustomButton';
 import MenuItem from '../menu-item/MenuItem';
 import s from './rooms.module.scss'
 
 const Rooms = (props)=>{
     const roomsItems = props.rooms.map((el)=>{
-        return <MenuItem key={el.id} {...el}/>
+        return(
+
+            <MenuItem forCleaner={props.forCleaner} key={el.id} poza={el[`poza${Math.floor(Math.random() * 4)+1}`]} {...el}/>
+        )
     });
     return (
 
@@ -15,4 +18,4 @@ const Rooms = (props)=>{
         </div>
     )
 }
-export default Rooms;
+export default withRouter(Rooms);

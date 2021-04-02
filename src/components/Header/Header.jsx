@@ -17,7 +17,7 @@ const Header = (props) => {
             </Link>
 
             <div className="options">
-                <Link className="option" to='/profile'>{props.user ? props.user.name : '' }</Link>
+                <Link className="option" to='/profile'>{props.user.userID ? 'My Profile' : '' }</Link>
                 <Link className="option" to='/shop'>CONTACT</Link>
                 { props.user.userID ? 
                 <Link onClick={signOut} to='/' className="option">Log Out</Link>

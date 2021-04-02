@@ -9,10 +9,6 @@ const RoomItem = (props)=>{
                 }}
                 className='image'>
             </div>
-            {/* <div className='collectionFooter'> */}
-                {/* <div className='name'>{props.item.name}</div> */}
-                {/* <div className='price'>${props.item.price}</div> */}
-            {/* </div> */}
         </div>
     )
 }

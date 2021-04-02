@@ -74,7 +74,7 @@ export const setRooms = (numberOfRooms) =>async (dispatch,getState) => {
   const section = getState().roomPage.section;
   const rooms = await roomAPI.getRooms(section,numberOfRooms);
   if(rooms !== '[undefined]'){
-    dispatch(setRoomsAction(rooms,section));
+    dispatch(setRoomsAction(rooms));
   }else if(rooms === '[undefined]'){
     dispatch(handleBTNShowAction(false));
   }
@@ -92,6 +92,13 @@ export const userCheckIn = (startDay,endDay,userId,roomId) =>async (dispatch) =>
     let data = await roomAPI.userCheckIn(user.email,user.password,startDay,endDay,userId,roomId);
     debugger
     dispatch();
+  }
+}
+export const getAllRooms = () =>async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  if(user){
+    let rooms = await roomAPI.getAllRoomsAPI();
+    dispatch(setRoomsAction(rooms));
   }
 }
 
