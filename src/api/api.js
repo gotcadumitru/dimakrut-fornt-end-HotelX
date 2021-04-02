@@ -59,7 +59,7 @@ export const roomAPI = {
     },
     async userCheckIn(email,password,startDay,endDay,userId,roomId) {
         debugger
-        const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/rent?start_day=${startDay}&end_day=${endDay}&camera_id=${roomId}&email=${email}&parola=${password}`);
+        const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/rent?start_day=${startDay}&end_day=${endDay}&room_id=${roomId}&email=${email}&parola=${password}`);
         
         debugger
        
