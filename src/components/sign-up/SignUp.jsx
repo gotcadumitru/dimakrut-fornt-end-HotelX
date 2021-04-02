@@ -48,6 +48,8 @@ const SignUp = (props) => {
                 <FormInput type='email' name='email' value={userData.email} changeSubmitData={handleChange} label='Email' required />
                 <FormInput type='text' name='password' value={userData.password} changeSubmitData={handleChange} label='Password' required />
                 <FormInput type='text' name='confirmPassword' value={userData.confirmPassword} changeSubmitData={handleChange} label='Confirm Password' required />
+                {props.error.forLogin ===false && props.error.text ? <div className='error'>Error: {props.error.text}</div> : ''}
+
                 <CustomButton type='submit'>Sign Up</CustomButton>
             </form>
         </div>
@@ -57,6 +59,7 @@ const SignUp = (props) => {
 
 const mapstateToProps = (state)=>{
     return {
+        error:state.auth.authError,
 
     }
 }

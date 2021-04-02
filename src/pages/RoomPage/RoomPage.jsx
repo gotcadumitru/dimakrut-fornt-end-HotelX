@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Loader from '../../components/Loader/Loader';
 import MenuItem from '../../components/menu-item/MenuItem';
-import RoomItem from '../../components/room-item/RoomItem';
-import { getOneRoom,userCheckIn } from '../../redux/room-reducer';
+import { getOneRoom, userRentRoom } from '../../redux/room-reducer';
 import CleanerComponent from './CleanerComponent/CleanerComponent';
 import s from './RoomPage.module.scss'
 import RoomPageForm from './RoomPageForm/RoomPageForm';
@@ -29,14 +28,6 @@ const RoomPage = (props) => {
     return () => {
     }
   }, [])
-
-  // const roomItemImg = <div className={s.roomsMenu}>
-  //   {props.room.map((el)=>{
-  //     debugger
-  //       return <MenuItem key={el.id} poza={el} {...el}/>
-  //   })
-  // }
-  // </div>
   const roomItemImg = props.room ? Object.keys(props.room).filter(el => {
     if (el.indexOf('poza') !== -1) {
       return true
@@ -99,7 +90,7 @@ const RoomPage = (props) => {
       {props.user.drept == "cleaner" 
       ? <CleanerComponent room={props.room}/> 
         : <RoomPageForm 
-        userCheckIn={props.userCheckIn} 
+        userRentRoom={props.userRentRoom} 
         rentPeriods={rentedPeriods ? rentedPeriods : []}  
         nr_max_pers={props.room.nr_max_pers} 
         roomData={roomData} 
@@ -157,7 +148,7 @@ const mapStateToProps = (state) => {
     user: state.auth,
   }
 }
-export default withRouter(connect(mapStateToProps, { getOneRoom: getOneRoom, userCheckIn,})(RoomPage));
+export default withRouter(connect(mapStateToProps, { getOneRoom: getOneRoom, userRentRoom: userRentRoom,})(RoomPage));
 
 //cand adminul va confirma check-outul atunci se va scoate din baza de date perioada pe care o brona userul
 //iar la user ii foi arata statusul bronarii cate zile mai are pana sa mearga in apartament

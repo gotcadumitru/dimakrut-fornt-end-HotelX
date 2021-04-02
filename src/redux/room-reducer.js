@@ -1,10 +1,12 @@
 import { roomAPI } from "../api/api";
+import { getUserData} from "./auth-reducer";
 
 
 const SER_ROOMS = 'SER_ROOMS';
 const CLEAR_ROOMS = 'CLEAR_ROOMS';
 const GET_ONE_ROOM = 'GET_ONE_ROOM';
 const HANDLE_BTN_SHOW = 'HANDLE_BTN_SHOW';
+const SET_RENT_STATUS = 'SET_RENT_STATUS';
 
 
 let initialState = {
@@ -13,6 +15,7 @@ let initialState = {
   section: 1,
   numberOfRooms:null,
   isBtnShow: true,
+  rentStatus: '',
 }
 
 const roomReducer = (state = initialState, action) => {
@@ -41,6 +44,11 @@ const roomReducer = (state = initialState, action) => {
         ...state,
         isBtnShow: action.isShow,        
       }
+    case SET_RENT_STATUS:
+        return {
+        ...state,
+        rentStatus: action.rentStatus,        
+      }
 
     default:
       return state;
@@ -62,6 +70,12 @@ const getOneRoomAction = (roomid) => {
   return {
   type: GET_ONE_ROOM,
   roomId: roomid,
+  }
+}
+const setRentStatusAction = (rentStatus) => {
+  return {
+  type: SET_RENT_STATUS,
+  rentStatus,
   }
 }
 const handleBTNShowAction =(isShow)=>{
@@ -86,12 +100,16 @@ export const getOneRoom = (roomid) =>async (dispatch) => {
     const oneRoom = await roomAPI.getOneRoom(roomid);
     dispatch(getOneRoomAction(oneRoom));
 }
-export const userCheckIn = (startDay,endDay,userId,roomId) =>async (dispatch) => {
+export const userRentRoom = (startDay,endDay,userId,roomId) =>async (dispatch) => {
+  dispatch(setRentStatusAction('Wait, the reservation is being executed'));
   const user = JSON.parse(localStorage.getItem('user'))
   if(user){
-    let data = await roomAPI.userCheckIn(user.email,user.password,startDay,endDay,userId,roomId);
-    debugger
-    dispatch();
+    let data = await roomAPI.userRentRoom(user.email,user.password,startDay,endDay,userId,roomId);
+    if(data.data===true){
+      dispatch(setRentStatusAction('The reservation was made successfully, in 10 seconds you will be redirected to the main page, you can find the reservation details in the profile page'));
+    }else{
+      dispatch(setRentStatusAction('A fost intampinata o eroare, va rugam sa mai incercati o data sa bronati camera'));
+    }
   }
 }
 export const getAllRooms = () =>async (dispatch) => {

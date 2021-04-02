@@ -13,7 +13,6 @@ export const authAPI = {
     async register(email, password,  nume,prenume ) {
 
         const resp = await axios.get(`http://atc2021.bfg-e.tech/api/register/?email=${email}&parola=${password}&nume=${nume}&prenume=${prenume}`);
-        
         return resp
     },
 
@@ -28,8 +27,6 @@ export const authAPI = {
 export const roomAPI = {
 
     async getRooms(sect,number) {
-
-        // const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/data/all`)
 
         const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/data/all?section=${sect}&number=${number}`);
         return resp.data;
@@ -57,11 +54,8 @@ export const roomAPI = {
         return resp.data;
 
     },
-    async userCheckIn(email,password,startDay,endDay,userId,roomId) {
-        debugger
+    async userRentRoom(email,password,startDay,endDay,userId,roomId) {
         const resp = await axios.get(`http://atc2021.bfg-e.tech/api/rooms/rent?start_day=${startDay}&end_day=${endDay}&room_id=${roomId}&email=${email}&parola=${password}`);
-        
-        debugger
        
         return resp;
 

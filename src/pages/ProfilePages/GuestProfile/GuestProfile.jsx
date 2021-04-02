@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CustomButton from '../../../components/custom-button/CustomButton';
-import MenuItemComponent from '../../../components/menu-item/MenuItem';
-import RoomItem from '../../../components/room-item/RoomItem';
 import s from './GuestProfile.module.css';
 import OpenImage from '../../../assets/door/Opened.png';
 import CloseImage from '../../../assets/door/Closed.png';
 import QrScanner from '../../../components/QrCodeScanner/QrScanner';
+import Rooms from '../../../components/rooms/Rooms';
+import MenuItem from '../../../components/menu-item/MenuItem';
 
 const GuestProfile = (props) => {
     
@@ -27,12 +27,12 @@ const GuestProfile = (props) => {
 
     const userRoomImg = props.userRoom ? Object.keys(props.userRoom).filter(el => {
         if (el.indexOf('poza') !== -1) {
-            return true
+          return true
         }
         return false
-    }).map(key => {
-        return <RoomItem imageUrl={props.userRoom[key]} />
-    }) : 'hi';
+      }).map(key => {
+        return <MenuItem forImages={true} key={key}  poza={props.userRoom[key]} />
+      }) : '';
 
     let rentedPeriods;
     let rentedComponent;
@@ -88,10 +88,7 @@ const GuestProfile = (props) => {
                 <h2>You do not have a room? Сhoose one:</h2>
                 <div className={s.ThreeRooms}>
                     {
-                        props.rooms.map(el => {
-                            return <MenuItemComponent key={el.id} {...el} />
-                        }
-                        )}
+                        <Rooms rooms={props.rooms}/>}
                 </div>
                 <div className={s.btnContainer}>
                     <Link to='/'><CustomButton>Show Moore</CustomButton></Link> 
@@ -113,6 +110,9 @@ const GuestProfile = (props) => {
                         isQrCodeCaneraStarted 
                         ? <div>
                         <div> <QrScanner setQrRespunse={setQrRespunse}/></div>
+                    <div className={s.error}>
+                    {error}
+                    </div>
                         <div className={s.btnContainer}> <CustomButton onClick={()=>{setQrCodeCamerastatus(false); setError('')}}>Cancel Scan</CustomButton></div>
                     </div> :
                          isDoorClosed 
@@ -120,9 +120,6 @@ const GuestProfile = (props) => {
                         : <img onClick={() => { clickCloseDoor() }} src={CloseImage} alt="roomstatus" />
                         
                     }
-                    <div className={s.error}>
-                    {error}
-                    </div>
                         </div>
                     </div>
 

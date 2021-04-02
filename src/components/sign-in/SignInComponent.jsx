@@ -38,7 +38,7 @@ class SignIn extends Component{
             <FormInput type="email" name="email" label="email" changeSubmitData = {this.changeSubmitData} value={this.state.email} required/>
             <FormInput type="password" name="password" label="password" changeSubmitData = {this.changeSubmitData} value={this.state.password}/>            
 
-            {this.props.error && <div className='error'>Error: {this.props.error}</div>}
+            {this.props.error.forLogin ===true && this.props.error.text ? <div className='error'>Error: {this.props.error.text}</div>:''}
             <div className='buttons'>
             <CustomButton type="submit" >Submit Form</CustomButton>
             </div>

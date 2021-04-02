@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import CustomButton from '../../../components/custom-button/CustomButton';
 import FormInput from '../../../components/form-input/FormInput';
 import s from './RoomPageForm.module.scss'
@@ -19,11 +19,8 @@ const RoomPageForm = (props) => {
         if (oldPeriod.length === 0) {
             return true
         }
-        // debugger
         for (let i = 0; i < oldPeriod.length; i++) {
-
-            if (newPeriod[0] >= oldPeriod[i][0] && newPeriod[0] <= oldPeriod[i][1] || newPeriod[1] >= oldPeriod[i][0] && newPeriod[1] <= oldPeriod[i][1]) {
-                alert("aceasta perioada nu este posibil de inchiriat")
+            if (newPeriod[0] >= oldPeriod[i][0] && newPeriod[0] <= oldPeriod[i][1] || newPeriod[1] >= oldPeriod[i][0] && newPeriod[1] <= oldPeriod[i][1] || newPeriod[0] <= oldPeriod[i][0] && newPeriod[1] >= oldPeriod[i][1] ) {
                 return false
             }
         }
@@ -33,7 +30,6 @@ const RoomPageForm = (props) => {
         e.preventDefault();
         const days = Math.floor((Date.parse(props.roomData.endDay) - Date.parse(props.roomData.startDay)) / 86400000);
         const isFree = checkIdPeriodFree([new Date(props.roomData.startDay).getTime(), new Date(props.roomData.endDay).getTime()], props.rentPeriods)
-        debugger
         if (days <= 0 || !days) {
             setEroare(`Incorrect number of days`);
 
@@ -55,11 +51,16 @@ const RoomPageForm = (props) => {
             handleBtnShow(true)
         }
     }
+    const rentRoom = (e) => {
+        e.preventDefault(); 
+        props.userRentRoom(new Date(props.roomData.startDay).getTime(), new Date(props.roomData.endDay).getTime(), props.user.userID, props.roomid);
+        props.history.push(`/rent`);
+    }
     let btnCopponent;
     if (props.user.userID) {
         if (props.user.roomID === -1) {
             if (isBtnShow) {
-                btnCopponent = <CustomButton disabled={props.sumaSpreAchitare == 0} onClick={() => { props.userCheckIn(new Date(props.roomData.startDay).getTime(), new Date(props.roomData.endDay).getTime(), props.user.userID, props.roomid) }}>Check-In</CustomButton>
+                btnCopponent = <CustomButton disabled={props.sumaSpreAchitare == 0} onClick={rentRoom}>Book</CustomButton>
             } else {
                 btnCopponent = '';
             }
@@ -137,4 +138,4 @@ const RoomPageForm = (props) => {
         </div>
     )
 }
-export default RoomPageForm
+export default withRouter(RoomPageForm);

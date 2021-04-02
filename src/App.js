@@ -8,6 +8,7 @@ import CheckIn from './pages/Checkpage/Check-in/CheckIn';
 import CheckOut from './pages/Checkpage/Check-out/CheckOut';
 import Homepage from './pages/Homepage/Homepage';
 import Profile from './pages/ProfilePages/Profile';
+import RentPage from './pages/RentPage/RentPage';
 import RoomPage from './pages/RoomPage/RoomPage';
 import Signinup from './pages/SignInUp/Signinup';
 import { initializeApp } from './redux/app-reducer';
@@ -28,6 +29,7 @@ const App =(props) => {
       <Route exact path='/checkin' component={CheckIn}/>
       <Route exact path='/checkout' component={CheckOut}/>
       <Route exact path='/profile' component={Profile}/>
+      <Route exact path='/rent' component={RentPage}/>
       <Route exact path='/sign' render={()=>props.userID ? (<Redirect to='/'/>) : (<Signinup/>) }/>
       <Route exact path='/rooms/:roomId' component={RoomPage}/>
 

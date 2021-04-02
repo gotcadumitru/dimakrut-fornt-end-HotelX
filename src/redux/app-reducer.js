@@ -26,9 +26,9 @@ const initializedSuccess = () => {
 }
 
 export const initializeApp = () =>async (dispatch) => {
-  const promise = dispatch(getUserData())
-  await Promise.all([promise])
-  dispatch(initializedSuccess())
+  const promise = dispatch(getUserData());
+  await Promise.all([promise]);
+  dispatch(initializedSuccess());
 }
 
 

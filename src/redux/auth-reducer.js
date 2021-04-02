@@ -11,7 +11,10 @@ let initialState = {
   isAuth: false,
   roomID: null,
   drept: null,
-  authError: '',
+  authError:{
+    text: '',
+    forLogin: null,
+  },
 }
 
 
@@ -26,7 +29,10 @@ const authReducer = (state = initialState, action) => {
     case SET_AUTH_ERROR:
       return {
         ...state,
-        authError: action.error,
+        authError: {
+          text: action.error,
+          forLogin: action.forLogin,
+        },
       }
 
     default:
@@ -49,15 +55,16 @@ const setUserData = (userID,drept, email, name, surname,roomID, rentPeriod,isAut
     }
   }
 }
-const setAuthError = (error) => {
+const setAuthError = (error,forLogin=false) => {
   return {
     type: SET_AUTH_ERROR,
     error,
+    forLogin,
   }
 }
 
 export const getUserData = () => async (dispatch) => {
-  const user = JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem('user'));
   if(user){
     let data = await authAPI.getUserData(user.email, user.password);
     if(data.data === 'incorect auth data'){
@@ -79,14 +86,17 @@ export const getUserData = () => async (dispatch) => {
 
 export const register = (email, password, nume, prenume) => async (dispatch) => {
   let resp = await authAPI.register(email, password, nume, prenume)
-  if(resp.data===true){
+  if(resp.data === "allready registered email"){
+    dispatch(setAuthError(resp.data,false));
+  }else if(resp.data===true){
+    dispatch(setAuthError(''));
     const userJSON = JSON.stringify({ email, password });
     localStorage.setItem('user', userJSON);
   }
   dispatch(getUserData());
 }
 export const login = (email, password) => async (dispatch) => {
-  dispatch(setAuthError(""))
+  dispatch(setAuthError("",true))
   let isUser = await authAPI.login(email, password)
   if (isUser) {
 
@@ -94,7 +104,7 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem('user', userJSON);
     dispatch(getUserData());
   }else{
-    dispatch(setAuthError("Incorrect User Data"))
+    dispatch(setAuthError("Incorrect User Data",true))
   }
 }
 export const logout = () => async (dispatch) => {
