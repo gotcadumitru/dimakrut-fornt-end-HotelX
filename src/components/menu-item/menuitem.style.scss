@@ -71,22 +71,22 @@
     }
   }
 
-  // @media screen and (max-width: 1000px) {
-  //   .homepage{
-  //     padding: 20px 0;
-  //   }
-  // }
-  // @media screen and (max-width: 700px) {
-  //   .homepage{
-  //     padding: 20px 0;
-  //   }
-  //   .menu-item {
-  //     width: 45%;
-  //   }
-  // }
-  // @media screen and (max-width: 550px) {
+  @media screen and (max-width: 1000px) {
+    .homepage{
+      padding: 20px 0;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .homepage{
+      padding: 20px 0;
+    }
+    .menu-item {
+      width: 45%;
+    }
+  }
+  @media screen and (max-width: 550px) {
 
-  //   .menu-item {
-  //     width: 70%;
-  //   }
-  // }
+    .menu-item {
+      width: 70%;
+    }
+  }

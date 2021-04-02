@@ -2,7 +2,7 @@ body{
   font-family: 'Open Sans Condensed';
   padding: 20px 80px;
 }
-/* *,
+*,
 *:before,
 *:after{
 	box-sizing: border-box;
@@ -15,12 +15,12 @@ img{
 	height: auto;
 	display: block;
 	margin: 0 auto;
-} */
+}
 
-/* @media screen and (max-width: 550px) {
+@media screen and (max-width: 550px) {
 
   body {
     padding: 20px 10px;
 
   }
-} */
+}
