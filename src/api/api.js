@@ -91,13 +91,13 @@ export const roomAPI = {
     },
     async changeMaxNumberOfGuestAPI(email,password,roomId,newGuestNumber) {
         debugger
-        const resp = await axios.get(`/api/changeMaxPersNumber/${roomId}/?email=${email}&parola=${password}&newVal=${newGuestNumber}`);
+        const resp = await axios.get(`/api/changeMaxPersNumber/${roomId}?email=${email}&parola=${password}&newVal=${Number(newGuestNumber)}`);
     debugger
         return resp.data;
     },
     async changePricePerNightAPI(email,password,roomId,newPrice) {
         debugger
-        const resp = await axios.get(`/api/changePrice/${roomId}/?email=${email}&parola=${password}&newVal=${newPrice}`);
+        const resp = await axios.get(`/api/changePrice/?email=${email}&parola=${password}&pret=${newPrice}&room_id=${roomId}`);
     debugger
         return resp.data;
     },
@@ -109,7 +109,7 @@ export const roomAPI = {
     },
     async deleteRoomAPI(email,password,roomID) {
         debugger
-        const resp = await axios.get(`/api/deleteRoom/${roomID}/?email=${email}&parola=${password}`);
+        const resp = await axios.get(`/api/deleteRoom/${roomID}?email=${email}&parola=${password}`);
     debugger
         return resp.data;
     },
