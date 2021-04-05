@@ -96,7 +96,7 @@ const RoomPage = (props) => {
       ? <CleanerComponent 
           getOneRoom={props.getOneRoom} 
           room={props.room}
-          endDate={ rentedPeriods ? rentedPeriodsSort[0][1]: 0}/> 
+          endDate={ rentedPeriods.length > 0 ? rentedPeriodsSort[0][1]: 0}/> 
         : props.user.drept == "user" ? <UserComponent 
         userRentRoom={props.userRentRoom} 
         rentPeriods={rentedPeriods ? rentedPeriods : []}  

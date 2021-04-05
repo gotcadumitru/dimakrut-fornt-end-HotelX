@@ -11,13 +11,15 @@ const Search = (props)=>{
 
     const handleChange = (event) => {
         let { value, name } = event.target;
+        // debugger
         setDates({ ...dates, [name]: value });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        debugger
-            props.addNewRoom(dates.startDay,dates.endDay,dates.numberOfGuests);
+        
+        props.getAllSelectedRooms(new Date(`${dates.startDay}T14:00:00`).getTime(),new Date(`${dates.endDay}T12:00:00`).getTime(),dates.numberOfGuests)
+        
             setDates(
                 {
                     startDay: '',
@@ -29,25 +31,25 @@ const Search = (props)=>{
     
 
     return(
-        <div className={s.searchInput}>
+        <div className={s.searchInputs}>
                 <form className={s.searchForm} onSubmit={(e)=>{handleSubmit(e)}} >
                 Start Day:
                 <FormInput
                     type='date'
-                    id='startDay'
+                    name='startDay'
                     value={dates.startDay}
                     changeSubmitData={handleChange}
                     required />
                 End Day:
                 <FormInput
                     type='date'
-                    id='endDay'
+                    name='endDay'
                     value={dates.endDay}
                     changeSubmitData={handleChange}
                     required />
                 <FormInput
                     type='number'
-                    id='numberOfGuests'
+                    name='numberOfGuests'
                     value={dates.numberOfGuests}
                     changeSubmitData={handleChange}
                     label='Number of Guests'

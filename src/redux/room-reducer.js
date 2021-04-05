@@ -1,5 +1,6 @@
 import { roomAPI } from "../api/api";
 import { getUserData} from "./auth-reducer";
+import { selectSearchRooms } from "./utils";
 
 
 const SER_ROOMS = 'SER_ROOMS';
@@ -7,6 +8,7 @@ const CLEAR_ROOMS = 'CLEAR_ROOMS';
 const GET_ONE_ROOM = 'GET_ONE_ROOM';
 const HANDLE_BTN_SHOW = 'HANDLE_BTN_SHOW';
 const SET_RENT_STATUS = 'SET_RENT_STATUS';
+const SET_SELECTED_ROOMS = 'SET_SELECTED_ROOMS';
 
 
 let initialState = {
@@ -14,7 +16,7 @@ let initialState = {
   oneRoom: null,
   section: 1,
   numberOfRooms:null,
-  isBtnShow: true,
+  isBtnShow: false,
   rentStatus: '',
 }
 
@@ -25,6 +27,12 @@ const roomReducer = (state = initialState, action) => {
         ...state,
         rooms: [...state.rooms, ...action.rooms],
         section: state.section+1,
+
+      }
+    case SET_SELECTED_ROOMS:
+      return {
+        ...state,
+        rooms: [...action.rooms],
 
       }
     case CLEAR_ROOMS:
@@ -61,6 +69,12 @@ const setRoomsAction = (rooms) => {
   rooms: [...rooms],
   }
 }
+const setSelectedRoomsAction = (rooms) => {
+  return {
+  type: SET_SELECTED_ROOMS,
+  rooms: [...rooms],
+  }
+}
 const clearRoomsAction = () => {
   return {
   type: CLEAR_ROOMS,
@@ -84,13 +98,14 @@ const handleBTNShowAction =(isShow)=>{
     isShow,
     }
 }
+export const handleBTNShow = (value) =>async (dispatch) => {
+  dispatch(handleBTNShowAction(value));
+}
 export const setRooms = (numberOfRooms) =>async (dispatch,getState) => {
   const section = getState().roomPage.section;
   const rooms = await roomAPI.getRooms(section,numberOfRooms);
   if(rooms !== '[undefined]'){
     dispatch(setRoomsAction(rooms));
-  }else if(rooms === '[undefined]'){
-    dispatch(handleBTNShowAction(false));
   }
 }
 export const clearRooms = () =>async (dispatch) => {
@@ -112,14 +127,21 @@ export const userRentRoom = (startDay,endDay,userId,roomId) =>async (dispatch) =
     }
   }
 }
+
 export const getAllRooms = () =>async (dispatch) => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  if(user){
+
     let rooms = await roomAPI.getAllRoomsAPI();
     dispatch(setRoomsAction(rooms));
-  }
 }
+export const getAllSelectedRooms = (startDay,endDay,numbOfGuest) =>async (dispatch) => {
 
+    let rooms = await roomAPI.getAllRoomsAPI();
+  
+    const SelectedRooms = selectSearchRooms(rooms,startDay,endDay,numbOfGuest);
+
+    dispatch(setSelectedRoomsAction(SelectedRooms));
+    handleBTNShow(true)(dispatch);
+}
 
 
 export default roomReducer;
