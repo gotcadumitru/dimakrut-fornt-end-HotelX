@@ -55,15 +55,37 @@ export const roomAPI = {
 
     },
     async userRentRoom(email,password,startDay,endDay,userId,roomId) {
+        debugger
         const resp = await axios.get(`/api/rooms/rent?start_day=${startDay}&end_day=${endDay}&room_id=${roomId}&email=${email}&parola=${password}`);
        
         return resp;
 
     },
-    async changeRoomstatus(roomId,newDoorStatus,email,password,) {
+    async changeDoorStatus(roomId,newDoorStatus,email,password) {
+        debugger
+        const resp = await axios.get(`/api/doorStatus/?email=${email}&parola=${password}&room_id=${roomId}&status=${newDoorStatus}`);
+       debugger
+        return resp.data;
 
-        const resp = await axios.get(`/api/handleDoorStatus/?email=${email}&parola=${password}&roomId=${roomId}&newStatus=${newDoorStatus}`);
-       
+    },
+    async userCheckIn(email,password,roomId) {
+        debugger
+        const resp = await axios.get(`/api/checkIn/?email=${email}&parola=${password}&room_id=${roomId}`);
+    debugger
+        return resp.data;
+
+    },
+    async userCheckOut(email,password,roomId) {
+        debugger
+        const resp = await axios.get(`/api/checkOut/?email=${email}&parola=${password}&room_id=${roomId}`);
+    debugger
+        return resp.data;
+
+    },
+    async cleanRoom(email,password,roomId) {
+        debugger
+        const resp = await axios.get(`/api/cleaned/?email=${email}&parola=${password}&room_id=${roomId}&time=${new Date().getTime() }`);
+    debugger
         return resp.data;
 
     },

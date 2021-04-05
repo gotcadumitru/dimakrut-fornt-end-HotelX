@@ -1,5 +1,5 @@
 export const roomsTocleanSelector = (rooms)=>{
     return rooms.filter(room =>{
-        return room.cleaned === 1
+        return room.cleaned === 0
     })
 }

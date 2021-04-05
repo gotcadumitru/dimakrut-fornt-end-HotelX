@@ -11,8 +11,8 @@ import MenuItem from '../../../components/menu-item/MenuItem';
 const GuestProfile = (props) => {
     
     const [isQrCodeCaneraStarted, setQrCodeCamerastatus] = useState(false);
-    let [isDoorClosed, handleDorStatus] = useState(true);
     let [error, setError] = useState('');
+
     useEffect(() => {
         if (props.user.roomID!= -1) {
             props.setUserRoom(props.user.roomID)
@@ -24,7 +24,15 @@ const GuestProfile = (props) => {
             props.clearUserRoom();
         }
     }, []);
+    useEffect(()=>{
+        if (props.user.roomID!= -1) {
+            props.setUserRoom(props.user.roomID)
+        } else {
+            props.setRooms(3, 1);
+        }
+    },[props.user])
 
+    const rentedPeriods = props.userRoom ? JSON.parse(props.userRoom.rented) : null;
     const userRoomImg = props.userRoom ? Object.keys(props.userRoom).filter(el => {
         if (el.indexOf('poza') !== -1) {
           return true
@@ -34,10 +42,8 @@ const GuestProfile = (props) => {
         return <MenuItem forImages={true} key={key}  poza={props.userRoom[key]} />
       }) : '';
 
-    let rentedPeriods;
     let rentedComponent;
     if (props.userRoom) {
-        rentedPeriods = JSON.parse(props.userRoom.rented);
 
         rentedComponent = rentedPeriods.map(item => {
             const startDate = new Date(item[0]).toDateString();
@@ -54,7 +60,7 @@ const GuestProfile = (props) => {
         if(qrScanResponse == props.user.roomID){
             const dateNow = new Date().getTime();
             if( dateNow >= props.user.rentPeriod[0] && dateNow <= props.user.rentPeriod[1] ){
-                handleDorStatus(false);
+                props.handleDoorStatus(1,props.user.roomID);
                 setQrCodeCamerastatus(false);
                 setError('Usa a Fost deschisa cu succes');
                 setTimeout(()=>{
@@ -70,11 +76,9 @@ const GuestProfile = (props) => {
             setError('This is not the qrcode on the yout door');
         }
     }
-
-        
-        
+      
     const clickCloseDoor = ()=>{
-        handleDorStatus(!isDoorClosed); 
+        props.handleDoorStatus(0,props.user.roomID); 
         setError('Usa a fost inchisa cu succes')
         setTimeout(()=>{
             setError('')
@@ -82,6 +86,33 @@ const GuestProfile = (props) => {
         },3000)
     }
 
+    const checkIsUserPeriod = (rentedPeriods) => {
+        
+        const dateNow = new Date().getTime();
+        const userRentedPeriod = rentedPeriods.find(item=>{
+            if(item[2]===props.user.userID){
+                return true
+            }
+
+        })
+
+        if(dateNow >= userRentedPeriod[0] && dateNow<=userRentedPeriod[1]){
+            return true
+
+        }
+        return false
+
+    }
+    const userCheckInClick = ()=>{
+        props.userCheckInForReucer(props.user.roomID);
+    }
+    const userCheckOutClick = ()=>{
+        props.userCheckOutForReucer(props.user.roomID);
+    }
+    if(props.userRoom ){
+        checkIsUserPeriod(rentedPeriods)
+    }
+    // debugger
     return (
         <div>
             { !props.userRoom ? <div>
@@ -102,11 +133,15 @@ const GuestProfile = (props) => {
                         }
                     </div>
 
-                    <div className={s.isDoorClosedatus}>
-                        { isDoorClosed ? <h2>Click the button under to scan QRcode and Open the door</h2> : <h2>Click the button under to Close the door</h2>}
-                        <div className={s.imageContainer}>
-                            {/* <img onClick={props.handleisDoorClosedatus(!props.room.isDoorClosedatus,props.user.roomID)} src={true ? OpenImage : CloseImage} alt="roomstatus"/> */}
                     {
+                    
+                    props.userRoom.cleaned===1 && props.userRoom.checked_in===1 && checkIsUserPeriod(rentedPeriods) ? 
+
+                    <div className={s.doorStatus}>
+
+                        { !props.userRoom.door_status ? <h2>Click the button under to scan QRcode and Open the door</h2> : <h2>Click the button under to Close the door</h2>}
+                        <div className={s.imageContainer}>
+                         {
                         isQrCodeCaneraStarted 
                         ? <div>
                         <div> <QrScanner setQrRespunse={setQrRespunse}/></div>
@@ -115,13 +150,32 @@ const GuestProfile = (props) => {
                     </div>
                         <div className={s.btnContainer}> <CustomButton onClick={()=>{setQrCodeCamerastatus(false); setError('')}}>Cancel Scan</CustomButton></div>
                     </div> :
-                         isDoorClosed 
+                         !props.userRoom.door_status 
                         ? <img onClick={() => { setQrCodeCamerastatus(true); }} src={OpenImage} alt="roomstatus" /> 
                         : <img onClick={() => { clickCloseDoor() }} src={CloseImage} alt="roomstatus" />
                         
                     }
                         </div>
-                    </div>
+                        <div>
+                            <div>
+                                Tastati butonul de mai jos in ziua in care plecati din hotel
+
+                            </div>
+                            <CustomButton onClick={userCheckOutClick}>Check Out</CustomButton>
+                        </div>
+                    </div> 
+                    
+                    : !checkIsUserPeriod(rentedPeriods) ? <div>Asteptati ziua in care ati bronat camera</div>
+                    : props.userRoom.cleaned===1 && props.userRoom.checked_in ===0 ?
+                    <div>
+                        <div>Camera este pregatita, puteti da check-In</div>
+                        <CustomButton onClick={userCheckInClick}>Check - In</CustomButton>
+                        </div>
+                    : props.userRoom.cleaned===0 && checkIsUserPeriod(rentedPeriods) ?
+                    <div>Camera este In proces de curatare, reveniti in cateva minute</div>
+                    : 'Acum e altceva'
+
+                    }   
 
 
                     <div className={s.roomInfo}>

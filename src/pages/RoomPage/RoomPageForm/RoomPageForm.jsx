@@ -29,7 +29,7 @@ const RoomPageForm = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const days = Math.floor((Date.parse(props.roomData.endDay) - Date.parse(props.roomData.startDay)) / 86400000);
-        const isFree = checkIdPeriodFree([new Date(props.roomData.startDay).getTime(), new Date(props.roomData.endDay).getTime()], props.rentPeriods)
+        const isFree = checkIdPeriodFree([new Date(`${props.roomData.startDay}T14:00:00`).getTime(), new Date(`${props.roomData.endDay}T12:00:00`).getTime()], props.rentPeriods)
         if (days <= 0 || !days) {
             setEroare(`Incorrect number of days`);
 
@@ -43,7 +43,7 @@ const RoomPageForm = (props) => {
             setEroare(`Perioada deja ocupata`);
 
         } else {
-
+            
             props.setDays(days)
 
             setEroare(null)
@@ -53,7 +53,9 @@ const RoomPageForm = (props) => {
     }
     const rentRoom = (e) => {
         e.preventDefault(); 
-        props.userRentRoom(new Date(props.roomData.startDay).getTime(), new Date(props.roomData.endDay).getTime(), props.user.userID, props.roomid);
+        
+        props.userRentRoom(new Date(`${props.roomData.startDay}T14:00:00`).getTime(), new Date(`${props.roomData.endDay}T12:00:00`).getTime(), props.user.userID, props.roomid);
+        
         props.history.push(`/rent`);
     }
     let btnCopponent;

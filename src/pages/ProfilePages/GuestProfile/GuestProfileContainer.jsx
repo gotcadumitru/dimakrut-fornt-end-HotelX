@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { clearRooms, setRooms } from "../../../redux/room-reducer";
-import { clearUserRoom, handleDoorStatus, setUserRoom } from "../../../redux/user-reducer";
+import { clearUserRoom, handleDoorStatus, setUserRoom, userCheckInForReucer,userCheckOutForReucer } from "../../../redux/user-reducer";
 import GuestProfile from "./GuestProfile";
 
 
@@ -18,4 +18,11 @@ const mapStateToProps = (state)=>{
     }
 }
 
-export default connect(mapStateToProps,{setUserRoom: setUserRoom, clearUserRoom:clearUserRoom,setRooms:setRooms,clearRooms:clearRooms,handleDoorStatus:handleDoorStatus})(GuestProfile);
+export default connect(mapStateToProps,{
+        setUserRoom: setUserRoom, 
+        clearUserRoom:clearUserRoom,
+        setRooms:setRooms,
+        clearRooms:clearRooms,
+        handleDoorStatus:handleDoorStatus,
+        userCheckInForReucer:userCheckInForReucer,
+        userCheckOutForReucer:userCheckOutForReucer,})(GuestProfile);

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import Loader from '../../components/Loader/Loader';
 import MenuItem from '../../components/menu-item/MenuItem';
 import { getOneRoom, userRentRoom } from '../../redux/room-reducer';
+import {  handleDoorStatusCleaner } from '../../redux/user-reducer';
 import CleanerComponent from './CleanerComponent/CleanerComponent';
 import s from './RoomPage.module.scss'
 import RoomPageForm from './RoomPageForm/RoomPageForm';
@@ -28,6 +29,8 @@ const RoomPage = (props) => {
     return () => {
     }
   }, [])
+
+  
   const roomItemImg = props.room ? Object.keys(props.room).filter(el => {
     if (el.indexOf('poza') !== -1) {
       return true
@@ -41,7 +44,7 @@ const RoomPage = (props) => {
   let rentedComponent;
   if(props.room){
     rentedPeriods = JSON.parse(props.room.rented);
-
+    
     rentedComponent = rentedPeriods.map(item=>{
       const startDate = new Date(item[0]).toDateString();
       const endDate = new Date(item[1]).toDateString();
@@ -58,18 +61,14 @@ const RoomPage = (props) => {
       <Loader/>
       )
   }
-
+  // debugger
   let roomStaus;
-  if(props.room.staus === 0){
-    roomStaus = 'Possible to rent'
-  }else if(props.room.staus === 1){
-    roomStaus = 'CheckIN';
-  }else if(props.room.staus === 2){
+  if(props.room.cleaned === 0){
+    roomStaus = 'Needs to be cleaned'
+  }else if(props.room.cleaned === 1 && props.room.checked_in===1){
     roomStaus = 'currently lives in it';
-  }else if(props.room.staus === 3){
-    roomStaus = 'Check Out';
-  }else if(props.room.staus === 4){
-    roomStaus = 'Needs to be cleaned';
+  }else if(props.room.cleaned === 1 && props.room.checked_in===1){
+    roomStaus = 'In curand va fi ocupata';
   }else{
     roomStaus = 'Pana cand nu avem room status';
   }
@@ -88,7 +87,9 @@ const RoomPage = (props) => {
       <div className={s.roomItem}>
       
       {props.user.drept == "cleaner" 
-      ? <CleanerComponent room={props.room}/> 
+      ? <CleanerComponent 
+          getOneRoom={props.getOneRoom} 
+          room={props.room}/> 
         : <RoomPageForm 
         userRentRoom={props.userRentRoom} 
         rentPeriods={rentedPeriods ? rentedPeriods : []}  
@@ -106,7 +107,7 @@ const RoomPage = (props) => {
           <div className={s.aboutItems}>
            { props.user.drept == "cleaner" ?
             <div className={s.aboutItem}>
-              <span className={s.aboutText}>Room Status:</span> <span className={s.aboutInfo}>{roomStaus} Size</span>
+              <span className={s.aboutText}>Room Status:</span> <span className={s.aboutInfo}>{roomStaus}</span>
             </div> : ''}
             <div className={s.aboutItem}>
               <span className={s.aboutText}>Room Number:</span> <span className={s.aboutInfo}>{props.room.id}</span>
@@ -148,7 +149,8 @@ const mapStateToProps = (state) => {
     user: state.auth,
   }
 }
-export default withRouter(connect(mapStateToProps, { getOneRoom: getOneRoom, userRentRoom: userRentRoom,})(RoomPage));
-
-//cand adminul va confirma check-outul atunci se va scoate din baza de date perioada pe care o brona userul
-//iar la user ii foi arata statusul bronarii cate zile mai are pana sa mearga in apartament
+export default withRouter(connect(mapStateToProps, { 
+  getOneRoom: getOneRoom, 
+  userRentRoom: userRentRoom,
+  handleDoorStatusCleaner:handleDoorStatusCleaner
+})(RoomPage));
