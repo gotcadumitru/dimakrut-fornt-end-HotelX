@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import CustomButton from '../../../components/custom-button/CustomButton';
 import FormInput from '../../../components/form-input/FormInput';
-import s from './RoomPageForm.module.scss'
+import s from './UserComponent.module.scss'
 
-const RoomPageForm = (props) => {
+const UserComponent = (props) => {
     const [isBtnShow, handleBtnShow] = useState(false);
     const [eroare, setEroare] = useState(props.error);
 
@@ -140,4 +140,4 @@ const RoomPageForm = (props) => {
         </div>
     )
 }
-export default withRouter(RoomPageForm);
+export default withRouter(UserComponent);

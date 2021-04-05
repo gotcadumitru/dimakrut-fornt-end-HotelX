@@ -5,9 +5,10 @@ import Loader from '../../components/Loader/Loader';
 import MenuItem from '../../components/menu-item/MenuItem';
 import { getOneRoom, userRentRoom } from '../../redux/room-reducer';
 import {  handleDoorStatusCleaner } from '../../redux/user-reducer';
+import AdminComponent from './AdminComponent/AdminComponent';
 import CleanerComponent from './CleanerComponent/CleanerComponent';
 import s from './RoomPage.module.scss'
-import RoomPageForm from './RoomPageForm/RoomPageForm';
+import UserComponent from './UserComponent/UserComponent';
 
 const RoomPage = (props) => {
 
@@ -41,10 +42,14 @@ const RoomPage = (props) => {
   }) : '';
 
   let rentedPeriods;
+  let rentedPeriodsSort;
   let rentedComponent;
   if(props.room){
     rentedPeriods = JSON.parse(props.room.rented);
-    
+    rentedPeriodsSort=rentedPeriods.sort((a,b)=>{
+      
+      return a[0]-b[0];
+    })
     rentedComponent = rentedPeriods.map(item=>{
       const startDate = new Date(item[0]).toDateString();
       const endDate = new Date(item[1]).toDateString();
@@ -56,6 +61,7 @@ const RoomPage = (props) => {
     })
     
   }
+  
   if (!props.room) {
     return (
       <Loader/>
@@ -67,7 +73,7 @@ const RoomPage = (props) => {
     roomStaus = 'Needs to be cleaned'
   }else if(props.room.cleaned === 1 && props.room.checked_in===1){
     roomStaus = 'currently lives in it';
-  }else if(props.room.cleaned === 1 && props.room.checked_in===1){
+  }else if(props.room.cleaned === 1 && props.room.checked_in===0){
     roomStaus = 'In curand va fi ocupata';
   }else{
     roomStaus = 'Pana cand nu avem room status';
@@ -89,8 +95,9 @@ const RoomPage = (props) => {
       {props.user.drept == "cleaner" 
       ? <CleanerComponent 
           getOneRoom={props.getOneRoom} 
-          room={props.room}/> 
-        : <RoomPageForm 
+          room={props.room}
+          endDate={ rentedPeriods ? rentedPeriodsSort[0][1]: 0}/> 
+        : props.user.drept == "user" ? <UserComponent 
         userRentRoom={props.userRentRoom} 
         rentPeriods={rentedPeriods ? rentedPeriods : []}  
         nr_max_pers={props.room.nr_max_pers} 
@@ -100,6 +107,9 @@ const RoomPage = (props) => {
         daysToPay={daysToPay} 
         setDays={setDays} 
         roomid={roomid}/>
+        : <AdminComponent
+        room={props.room}/>
+        
 
       }
         </div>
@@ -113,7 +123,7 @@ const RoomPage = (props) => {
               <span className={s.aboutText}>Room Number:</span> <span className={s.aboutInfo}>{props.room.id}</span>
             </div>
             <div className={s.aboutItem}>
-              <span className={s.aboutText}>Price per night:</span> <span className={s.aboutInfo}>${props.room.pret}</span>
+              <span className={s.aboutText}>Price per night:</span> <span className={s.aboutInfo}>€{props.room.pret}</span>
             </div>
             <div className={s.aboutItem}>
               <span className={s.aboutText}>Max number of Persons:</span><span className={s.aboutInfo}>{props.room.nr_max_pers}</span>
@@ -128,7 +138,7 @@ const RoomPage = (props) => {
             {props.user.drept == "cleaner" 
             ? ''
             :<div className={s.aboutItem}>
-              <span className={s.aboutText}>Suma ce va trebui sa o achitati:</span> <span className={s.aboutInfo}>${daysToPay*props.room.pret}</span>
+              <span className={s.aboutText}>Suma ce va trebui sa o achitati:</span> <span className={s.aboutInfo}>€{daysToPay*props.room.pret}</span>
             </div>}
           </div>
         </div>

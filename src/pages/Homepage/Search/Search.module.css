@@ -1,0 +1,8 @@
+.searchForm{
+    width: 100%;
+}
+.searchForm{
+    display: flex;
+    /* width: 100%; */
+    justify-content: space-between;
+}

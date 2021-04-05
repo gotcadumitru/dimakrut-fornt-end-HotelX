@@ -56,7 +56,7 @@ const CleanerComponent = (props) => {
                     props.room.cleaned === 0 &&
                     <div>
                         <div>Tastati butonul de mai jos daca ati dacut curat in camera</div>
-                        <CustomButton onClick={()=>{props.cleanRoomForReducer(props.room.id)}}>Room Is Cleaned</CustomButton>
+                        <CustomButton onClick={()=>{props.cleanRoomForReducer(props.room.id,props.endDate)}}>Room Is Cleaned</CustomButton>
                     </div>
                 }
             </div>

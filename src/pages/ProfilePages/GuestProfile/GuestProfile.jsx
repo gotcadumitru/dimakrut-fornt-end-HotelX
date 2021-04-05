@@ -23,14 +23,15 @@ const GuestProfile = (props) => {
             props.clearRooms();
             props.clearUserRoom();
         }
-    }, []);
-    useEffect(()=>{
-        if (props.user.roomID!= -1) {
-            props.setUserRoom(props.user.roomID)
-        } else {
-            props.setRooms(3, 1);
-        }
-    },[props.user])
+    }, [props.user]);
+    
+    // useEffect(()=>{
+    //     if (props.user.roomID!= -1) {
+    //         props.setUserRoom(props.user.roomID)
+    //     } else {
+    //         props.setRooms(3, 1);
+    //     }
+    // },[props.user])
 
     const rentedPeriods = props.userRoom ? JSON.parse(props.userRoom.rented) : null;
     const userRoomImg = props.userRoom ? Object.keys(props.userRoom).filter(el => {
@@ -112,7 +113,7 @@ const GuestProfile = (props) => {
     if(props.userRoom ){
         checkIsUserPeriod(rentedPeriods)
     }
-    // debugger
+    debugger
     return (
         <div>
             { !props.userRoom ? <div>
@@ -125,7 +126,10 @@ const GuestProfile = (props) => {
                     <Link to='/'><CustomButton>Show Moore</CustomButton></Link> 
                 </div>
             </div> :
-                <div>
+                
+                    props.userRoom.cleaned===0 && checkIsUserPeriod(rentedPeriods) ? 
+                    'Asteptati pana cand cleanerul va ferifica daca tot e ok'
+                    : <div>
                     <h2>Your room is beautiful:</h2>
                     <div className={s.roomImages}>
                         {

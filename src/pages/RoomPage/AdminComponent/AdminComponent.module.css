@@ -1,0 +1,6 @@
+.btnContainer{
+    width: 100%;
+}
+.btnContainer button{
+    margin: 20px 0 0 auto;
+}
