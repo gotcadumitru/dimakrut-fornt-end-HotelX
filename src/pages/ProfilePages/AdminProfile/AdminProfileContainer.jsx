@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import {  clearRooms, getAllRooms } from "../../../redux/room-reducer";
-import { addNewRoom } from "../../../redux/user-reducer";
-import { findTotalCapacity, findTotalGuestInotel, findTotalRoomPeriods, roomsTocleanSelector } from "../../../redux/utils";
+import { addNewRoom ,SendEmail} from "../../../redux/user-reducer";
+import { findTotalCapacity, findTotalGuestInotel, findTotalRoomPeriods, roomsTocleanSelector, } from "../../../redux/utils";
 import AdminProfile from "./AdminProfile";
 
 
@@ -22,4 +22,4 @@ const mapStateToProps = (state)=>{
     }
 }
 
-export default connect(mapStateToProps,{getAllRooms:getAllRooms,addNewRoom:addNewRoom,clearRooms:clearRooms})(AdminProfile);
+export default connect(mapStateToProps,{SendEmail:SendEmail, getAllRooms:getAllRooms,addNewRoom:addNewRoom,clearRooms:clearRooms})(AdminProfile);

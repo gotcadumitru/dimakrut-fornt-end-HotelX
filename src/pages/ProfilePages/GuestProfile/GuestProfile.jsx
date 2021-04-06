@@ -97,6 +97,7 @@ const GuestProfile = (props) => {
                 return true
             }
 
+
         })
 
         if (dateNow >= userRentedPeriod[0] && dateNow <= userRentedPeriod[1]) {
@@ -129,13 +130,45 @@ const GuestProfile = (props) => {
             </div> :
 
                 props.userRoom.cleaned === 0 && checkIsUserPeriod(rentedPeriods) ?
-                    'Asteptati pana cand cleanerul va ferifica daca tot e ok'
+                <div className={s.waitRentedDay}>You will be able to reserve another room after the cleaner will clean in the previous room</div>
                     : <div>
-                        <h2>Your room is beautiful:</h2>
+                        <h2>Your room:</h2>
                         <div className={s.roomImages}>
                             {
                                 userRoomImg
                             }
+                        </div>
+                        <div className={s.aboutRoom}>
+                            <div className={s.aboutRoomItems}>
+                                <div>
+
+                                <div className={s.aboutRoomItem}>
+                                    <span>Rent period: </span> <div> <div> From: {new Date(userRentedPeriod[0]+10800000).toUTCString().replace('GMT','')} </div>To: {new Date(userRentedPeriod[1]+10800000).toUTCString().replace('GMT','')}</div>
+                                </div>
+                                <div className={s.aboutRoomItem}>
+                                    <span>Room number:</span><span>{props.userRoom.id}</span>
+                                </div>
+                                </div>
+                                <div>
+
+                                <div className={s.aboutRoomItem}>
+                                    <span>Maximum number of people:</span> <span>{props.userRoom.nr_max_pers}</span>
+                                </div>
+                                <div className={s.aboutRoomItem}>
+                                    <span>Facilities:</span> <span>{props.userRoom.facilitati}</span>
+                                </div>
+                                <div className={s.aboutRoomItem}>
+                                    <span>Price for one night:</span> <span>{props.userRoom.pret}</span>
+                                </div>
+                                <div className={s.aboutRoomItem}>
+                                    <span>Your email address:</span> <span>{props.user.email}</span>
+                                </div>
+                                </div>
+
+
+                                
+
+                            </div>
                         </div>
 
                         {
@@ -162,35 +195,42 @@ const GuestProfile = (props) => {
                                         }
                                     </div>
                                     <div>
-                                        <div>
-                                            Tastati butonul de mai jos in ziua in care plecati din hotel
 
-                            </div>
+                                        <div>
+                                            <div className={s.btnContainer}>
+                                            Please press this button on the day of departure until 12:00
                                         <CustomButton onClick={userCheckOutClick}>Check Out</CustomButton>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 : !checkIsUserPeriod(rentedPeriods)
                                     ? <div className={s.waitRentedDay}>
-                                        <div>Asteptati ziua in care ati bronat camera.</div>
-                                        <div>Mai aveti de asteptat: {Math.floor((userRentedPeriod[0] - new Date().getTime()) / 86400000)} Zile</div>
+                                        <div>Wait for the time you booked the room.</div>
+                                        <div>You have {Math.floor((userRentedPeriod[0] - new Date().getTime()) / 86400000)} more days to wait</div>
                                         <div className={s.btnContainer}>
-                                            <CustomButton onClick={() => { alert('in lucru') }}>Cancel Rent this room</CustomButton>
+                                            <CustomButton onClick={() => { props.cancelRent(props.userRoom.id) }}>Cancel Rent this room</CustomButton>
                                         </div>
                                     </div>
                                     : props.userRoom.cleaned === 1 && props.userRoom.checked_in === 0 ?
                                         <div className={s.waitRentedDay}>
                                             <div className={s.btnContainer}>
-                                            <div>Camera este pregatita, puteti achita:</div>
-                                            <div className='sign-up'>
-                                                <h2 className='title'>Card Info</h2>
-                                                <form className='sign-up-form' >
-                                                    <FormInput type='text' name='nume' value='Card Number' label='Card Number' required />
-                                                    <FormInput type='text' name='prenume' value='Card Name' label='Card Name' required />
-                                                    <FormInput type='text' name='email' value='CVV' label='CVV' required />
-                                                <CustomButton onClick={userCheckInClick}>Pay & Check-In</CustomButton>
-                                                </form>
-                                            </div>
+                                                <div>Camera este pregatita, puteti achita:</div>
+                                                <div className={s.payForm}>
+                                                    <h2 className={s.title}>Card Info</h2>
+                                                    <form className='sign-up-form' >
+                                                        <FormInput type='text' name='nume' value='Card Number' label='Card Number' required />
+                                                        <FormInput type='text' name='prenume' value='Card Name' label='Card Name' required />
+                                                        <FormInput type='text' name='email' value='CVV' label='CVV' required />
+                                                        <div>
+
+                                                            <div>Suma ce va trebui sa o achitati:  </div>
+                                                            <div>{(Math.floor((userRentedPeriod[1] - userRentedPeriod[0]) / 86400000)+1) * props.userRoom.pret} Euro</div>
+                                                        </div>
+                                                        <CustomButton onClick={userCheckInClick}>Pay & Check-In</CustomButton>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                         : props.userRoom.cleaned === 0 && checkIsUserPeriod(rentedPeriods) ?

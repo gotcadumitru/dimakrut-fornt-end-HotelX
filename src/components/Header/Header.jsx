@@ -11,14 +11,13 @@ const Header = (props) => {
     }
 
     return (
-        <div className="header">
+        <div className="header Appcontainer">
             <Link to='/' className="logo-container">
             <img src={Logo} alt="2"/>
             </Link>
 
             <div className="options">
                 <Link className="option" to='/profile'>{props.user.userID ? 'My Profile' : '' }</Link>
-                <Link className="option" to='/shop'>CONTACT</Link>
                 { props.user.userID ? 
                 <Link onClick={signOut} to='/' className="option">Log Out</Link>
                 :

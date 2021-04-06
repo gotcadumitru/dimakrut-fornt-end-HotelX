@@ -30,7 +30,7 @@ class QrScanner extends Component {
           onScan={this.handleScan}
           style={{ 
             height: 240,
-            width: 320, 
+            width: 240, 
             margin: '0 auto 90px auto' }}
         />
       </div>

@@ -103,6 +103,13 @@ export const changeNewPrice = (roomId,newPrice) =>async (dispatch) => {
     getOneRoom(roomId)(dispatch)
   }
 }
+export const changeNewFacilitati = (roomId,newFacilit) =>async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  const resp = await roomAPI.changeNewFacilitatiAPI(user.email, user.password,roomId,newFacilit);
+  if(resp){
+    getOneRoom(roomId)(dispatch)
+  }
+}
 export const addNewRoom = (pret,clasa,nr_max_pers,poza1,poza2,poza3,poza4,facilitati) =>async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('user'))
   const resp = await roomAPI.addNewRoomAPI(user.email, user.password,pret,clasa,nr_max_pers,poza1,poza2,poza3,poza4,facilitati);
@@ -110,6 +117,19 @@ export const addNewRoom = (pret,clasa,nr_max_pers,poza1,poza2,poza3,poza4,facili
 export const deleteRoom = (roomID) =>async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('user'))
   const resp = await roomAPI.deleteRoomAPI(user.email, user.password,roomID);
+}
+
+export const cancelRent = (roomID) =>async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  const resp = await roomAPI.cancelRentAPI(user.email, user.password,roomID);
+  
+  getUserData()(dispatch)
+}
+export const SendEmail = (emaiText) =>async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+  const resp = await roomAPI.sendEmail(user.email, user.password,emaiText);
+  
+  getUserData()(dispatch)
 }
 
 

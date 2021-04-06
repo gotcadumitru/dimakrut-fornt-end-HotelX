@@ -72,11 +72,11 @@ const RoomPage = (props) => {
   if(props.room.cleaned === 0){
     roomStaus = 'Needs to be cleaned'
   }else if(props.room.cleaned === 1 && props.room.checked_in===1){
-    roomStaus = 'currently lives in it';
+    roomStaus = 'Lives in it';
   }else if(props.room.cleaned === 1 && props.room.checked_in===0){
-    roomStaus = 'In curand va fi ocupata';
+    roomStaus = 'Waiting for guests';
   }else{
-    roomStaus = 'Pana cand nu avem room status';
+    roomStaus = 'Wait';
   }
   return (
     <div className={s.collectionPage}>
@@ -97,7 +97,9 @@ const RoomPage = (props) => {
           getOneRoom={props.getOneRoom} 
           room={props.room}
           endDate={ rentedPeriods.length > 0 ? rentedPeriodsSort[0][1]: 0}/> 
-        : props.user.drept == "user" ? <UserComponent 
+        : props.user.drept == "admin" ? <AdminComponent
+        room={props.room}/>
+        : <UserComponent 
         userRentRoom={props.userRentRoom} 
         rentPeriods={rentedPeriods ? rentedPeriods : []}  
         nr_max_pers={props.room.nr_max_pers} 
@@ -107,8 +109,7 @@ const RoomPage = (props) => {
         daysToPay={daysToPay} 
         setDays={setDays} 
         roomid={roomid}/>
-        : <AdminComponent
-        room={props.room}/>
+        
         
 
       }
@@ -126,19 +127,22 @@ const RoomPage = (props) => {
               <span className={s.aboutText}>Price per night:</span> <span className={s.aboutInfo}>€{props.room.pret}</span>
             </div>
             <div className={s.aboutItem}>
-              <span className={s.aboutText}>Max number of Persons:</span><span className={s.aboutInfo}>{props.room.nr_max_pers}</span>
+              <span className={s.aboutText}>Maximum guest:</span><span className={s.aboutInfo}>{props.room.nr_max_pers}</span>
             </div>
             {rentedPeriods.length>0 && <div className={s.aboutItem}>
-              <span className={s.aboutText}>Peroiade in care este ocupata:</span> <span className={s.aboutInfo}>{rentedPeriods ? rentedPeriods.length : '0'}</span>
+              <span className={s.aboutText}>Reserved periods:</span> <span className={s.aboutInfo}>{rentedPeriods ? rentedPeriods.length : '0'}</span>
             </div>}
             {rentedComponent}
             <div className={s.aboutItem}>
-              <span className={s.aboutText}>Marimea camerei:</span> <span className={s.aboutInfo}>{props.room.clasa === 0 ? 'SMALL' : props.room.clasa === 1 ? 'MEDIUM' : props.room.clasa === 2 ? 'BIG' : ''} Size</span>
+              <span className={s.aboutText}>Room size:</span> <span className={s.aboutInfo}>{props.room.clasa === 0 ? 'SMALL' : props.room.clasa === 1 ? 'MEDIUM' : props.room.clasa === 2 ? 'BIG' : ''} Size</span>
+            </div>
+            <div className={s.aboutItem}>
+              <span className={s.aboutText}>Facilities:</span> <span className={s.aboutInfo}>{props.room.facilitati.split(',').map(item=><div>{item}</div>)} </span>
             </div>
             {props.user.drept == "cleaner" 
             ? ''
             :<div className={s.aboutItem}>
-              <span className={s.aboutText}>Suma ce va trebui sa o achitati:</span> <span className={s.aboutInfo}>€{daysToPay*props.room.pret}</span>
+              <span className={s.aboutText}>Amount to pay::</span> <span className={s.aboutInfo}>€{daysToPay*props.room.pret}</span>
             </div>}
           </div>
         </div>

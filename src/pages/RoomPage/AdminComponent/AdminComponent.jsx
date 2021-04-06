@@ -3,16 +3,20 @@ import s from './AdminComponent.module.css'
 import { connect } from 'react-redux';
 import FormInput from '../../../components/form-input/FormInput';
 import CustomButton from '../../../components/custom-button/CustomButton';
-import { changeMaxNumberOfGuest, changeNewPrice,deleteRoom } from '../../../redux/user-reducer';
+import { changeMaxNumberOfGuest, changeNewPrice,deleteRoom ,changeNewFacilitati} from '../../../redux/user-reducer';
 import { withRouter } from 'react-router';
 
 const AdminComponent = (props) => {
+    const [error,setError] = useState('');
     const [formData, handleFormData] = useState({
         numberOfGuestNew: '',
         roomPriceNew: '',
+        facilitNew: props.room.facilitati,
 
-    })
-    let [error, setError] = useState('');
+    });
+    // useEffect(()=>{
+    //     handleFormData({...formData, facilitNew: props.room.facilitati});
+    // },[props.room.facilitati])
 
     const handleChange = (event) => {
         let { value, id } = event.target;
@@ -21,11 +25,36 @@ const AdminComponent = (props) => {
     }
     const changeMaxNumberOfGuestForm = (e)=>{
         e.preventDefault();
+        setError('Succes')
         props.changeMaxNumberOfGuest(props.room.id,formData.numberOfGuestNew);
+        setTimeout(()=>{
+            setError('')
+        },3000)
+        handleFormData({
+            numberOfGuestNew: '',
+        roomPriceNew: '',
+        })
     }
     const changeNewPriceForm = (e)=>{
         e.preventDefault();
+        setError('Succes')
         props.changeNewPrice(props.room.id,formData.roomPriceNew);
+        setTimeout(()=>{
+            setError('')
+        },3000)
+        handleFormData({
+            numberOfGuestNew: '',
+        roomPriceNew: '',
+        })
+    }
+    const changeNewFacilitForm = (e)=>{
+        e.preventDefault();
+        setError('Succes')
+        props.changeNewFacilitati(props.room.id,formData.facilitNew);
+        setTimeout(()=>{
+            setError('')
+        },3000)
+
     }
     const deleteRoomBTN = ()=>{
         props.deleteRoom(props.room.id)
@@ -55,6 +84,21 @@ const AdminComponent = (props) => {
                     changeSubmitData={handleChange}
                     label='New Price per Night'
                     required />
+
+                <CustomButton>Change</CustomButton>
+
+
+            </form>
+            <form onSubmit={changeNewFacilitForm}>
+                <FormInput
+
+                    type='text'
+                    id='facilitNew'
+                    value={formData.facilitNew}
+                    changeSubmitData={handleChange}
+                    label='Facilities specified by comma'
+                    required />
+
                 <CustomButton>Change</CustomButton>
 
 
@@ -62,6 +106,8 @@ const AdminComponent = (props) => {
             <div className={s.btnContainer}>
                 <CustomButton onClick={()=>{deleteRoomBTN()}}>Delete This Room</CustomButton>
             </div>
+            <div>{error}</div>
+
         </div>
     )
 }
@@ -72,4 +118,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default withRouter(connect(mapStateToProps, { changeMaxNumberOfGuest:changeMaxNumberOfGuest,changeNewPrice:changeNewPrice,deleteRoom:deleteRoom})(AdminComponent));
+export default withRouter(connect(mapStateToProps, { changeNewFacilitati:changeNewFacilitati, changeMaxNumberOfGuest:changeMaxNumberOfGuest,changeNewPrice:changeNewPrice,deleteRoom:deleteRoom})(AdminComponent));

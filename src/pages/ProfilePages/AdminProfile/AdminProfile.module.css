@@ -1,6 +1,7 @@
 .adminContent{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 .contentItem{
@@ -9,6 +10,7 @@
 .aboutHotelItems{
     margin-top: 70px;
     text-align: center;
+    border: 1px solid black;
 
 }
 .aboutHotelItem{
@@ -21,3 +23,25 @@
 .aboutHotelItem span{
     width: 40%;
 }
+.white{
+    background-color: white;
+}
+.green{
+    background-color:aquamarine ;
+}
+.blue{
+    background-color:cornflowerblue ;
+}
+.yellow{
+    background-color:coral ;
+}
+table{
+    text-align: center;
+    border: 1px solid black;
+}
+.red{
+    background-color: red;
+}
+/* tr,th,td{
+    border: 1px solid black;
+} */

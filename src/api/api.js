@@ -101,15 +101,33 @@ export const roomAPI = {
     debugger
         return resp.data;
     },
+    async changeNewFacilitatiAPI(email,password,roomId,facilit) {
+        debugger
+        const resp = await axios.get(`/api/changeFacilities/?email=${email}&parola=${password}&facilitati=${facilit}&room_id=${roomId}`);
+    debugger
+        return resp.data;
+    },
     async addNewRoomAPI(email,password,pret,clasa,nr_max_pers,poza1,poza2,poza3,poza4,facilitati) {
         debugger
-        const resp = await axios.get(`/api/addRoom/?email=${email}&parola=${password}&pret=${pret}&clasa=${clasa}&nr_max_pers=${nr_max_pers}&poza1=${poza1}&poza2=${poza2}&poza3=${poza3}&poza4=${poza4}`);
+        const resp = await axios.get(`/api/addRoom/?email=${email}&parola=${password}&pret=${pret}&clasa=${clasa}&nr_max_pers=${nr_max_pers}&poza1=${poza1}&poza2=${poza2}&poza3=${poza3}&poza4=${poza4}&facilitati="${facilitati}"`);
     debugger
         return resp.data;
     },
     async deleteRoomAPI(email,password,roomID) {
         debugger
         const resp = await axios.get(`/api/deleteRoom/${roomID}?email=${email}&parola=${password}`);
+    debugger
+        return resp.data;
+    },
+    async cancelRentAPI(email,password,roomID) {
+        debugger
+        const resp = await axios.get(`/api/cancelRent?email=${email}&parola=${password}&room_id=${roomID}`);
+    debugger
+        return resp.data;
+    },
+    async sendEmail(email,password,emailText) {
+        debugger
+        const resp = await axios.get(`/api/sendEmail?email=${email}&parola=${password}&emaiText=${emailText}`);
     debugger
         return resp.data;
     },

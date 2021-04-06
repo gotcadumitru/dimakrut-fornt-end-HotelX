@@ -8,7 +8,7 @@ const RentPage = (props)=>{
     useEffect(()=>{
         props.getUserData();
     },[])
-    if(props.rentStatus === 'The reservation was made successfully, in 10 seconds you will be redirected to the main page, you can find the reservation details in the profile page'){
+    if(props.rentStatus === 'The reservation was made successfully, in 10 seconds you will be redirected to the main page. You can find the reservation details in the profile page'){
         setTimeout(()=>{
             props.history.push(`/`);
         },10000);

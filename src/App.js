@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect} from 'react-redux';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import './App.css';
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import QrScanner from './components/QrCodeScanner/QrScanner';
 import CheckIn from './pages/Checkpage/Check-in/CheckIn';
@@ -33,6 +34,7 @@ const App =(props) => {
       <Route exact path='/sign' render={()=>props.userID ? (<Redirect to='/'/>) : (<Signinup/>) }/>
       <Route exact path='/rooms/:roomId' component={RoomPage}/>
 
+      <Footer/>
       </BrowserRouter>
 
     </div>

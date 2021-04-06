@@ -37,5 +37,43 @@ h2{
     font-size: 1.6rem;
 }
 .btnContainer{
+    margin: 100px auto 0 auto;
+    text-align: center;
+}
+.payForm{
+    display: flex;
+    flex-direction: column;
+    width: 380px;
     margin: 0 auto;
+}
+
+    .title{
+        margin: 10px 0;
+    }
+.aboutRoomItems{
+    width: 90%;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.3rem;
+}
+@media screen and (max-width: 850px) {
+    .aboutRoomItems{
+        display: block;
+
+    }
+    .roomImages{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 auto;
+    }
+}
+@media screen and (max-width: 600px) {
+    
+    .imageContainer img{
+        max-width: 150px;
+    }
+    .btnContainer{
+        margin-top: 0px;
+    }
 }
