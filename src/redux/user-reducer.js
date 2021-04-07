@@ -68,6 +68,7 @@ export const userCheckInForReucer = (roomId) =>async (dispatch) => {
   const user = JSON.parse(localStorage.getItem('user'))
   const resp = await roomAPI.userCheckIn(user.email, user.password,roomId);
   if(resp){
+    getUserData()(dispatch)
     setUserRoom(roomId)(dispatch);
   }
 
