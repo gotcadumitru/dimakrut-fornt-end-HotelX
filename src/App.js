@@ -4,9 +4,7 @@ import { BrowserRouter, Redirect, Route } from 'react-router-dom';
 import './App.css';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import QrScanner from './components/QrCodeScanner/QrScanner';
-import CheckIn from './pages/Checkpage/Check-in/CheckIn';
-import CheckOut from './pages/Checkpage/Check-out/CheckOut';
+
 import Homepage from './pages/Homepage/Homepage';
 import Profile from './pages/ProfilePages/Profile';
 import RentPage from './pages/RentPage/RentPage';
@@ -27,8 +25,7 @@ const App =(props) => {
       <Header/>
 
       <Route exact path='/' component={Homepage}/>
-      <Route exact path='/checkin' component={CheckIn}/>
-      <Route exact path='/checkout' component={CheckOut}/>
+
       <Route exact path='/profile' component={Profile}/>
       <Route exact path='/rent' component={RentPage}/>
       <Route exact path='/sign' render={()=>props.userID ? (<Redirect to='/'/>) : (<Signinup/>) }/>

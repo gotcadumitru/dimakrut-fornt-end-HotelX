@@ -22,15 +22,22 @@ const AdminProfile = (props) => {
             facilitati: '',
 
         });
-    const [emailText, setEmailText] = useState('');
+    const [emailText, setEmailText] = useState({
+        subject: '',
+        content: '',
+    });
 
     const handleChangeEmailText = (event) => {
         let { value, name } = event.target;
-        setEmailText(value);
+        setEmailText({...emailText, [name]:value});
     }
     const handleSubmitEmailText = (e)=>{
         e.preventDefault();
         props.SendEmail(emailText)
+        setEmailText({
+            subject: '',
+            content: '',
+        })
         
 
     }
@@ -141,7 +148,8 @@ const AdminProfile = (props) => {
             <div className='sign-up'>
                     <h2 className='title'>Type Email Text</h2>
                     <form className='sign-up-form' onSubmit={handleSubmitEmailText}>
-                        <FormInput type='textarea' name='emailText' value={emailText} changeSubmitData={handleChangeEmailText} label='Email text' required />
+                        <FormInput type='textarea' name='subject' value={emailText.subject} changeSubmitData={handleChangeEmailText} label='Subject' required />
+                        <FormInput type='textarea' name='content' value={emailText.content} changeSubmitData={handleChangeEmailText} label='Email text' required />
                         <CustomButton type='submit'>Send Email</CustomButton>
                     </form>
                 </div>

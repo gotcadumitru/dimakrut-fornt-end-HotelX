@@ -17,19 +17,19 @@ const CleanerComponent = (props) => {
         if (qrScanResponse == props.room.id) {
             props.handleDoorStatusCleaner(1,props.room.id);
             setQrCodeCamerastatus(false);
-            setError('Usa a Fost deschisa cu succes');
+            setError('The door was successfully opened');
             setTimeout(() => {
                 setError('');
 
             }, 3000)
 
         } else {
-            setError('This is not the qrcode on the yout door');
+            setError("It's not the code on your door");
         }
     }
     const clickCloseDoor = () => {
         props.handleDoorStatusCleaner(0,props.room.id); 
-        setError('Usa a fost inchisa cu succes')
+        setError('The door was closed successfully')
         setTimeout(() => {
             setError('')
 
@@ -56,7 +56,7 @@ const CleanerComponent = (props) => {
                     props.room.cleaned === 0 &&
                     <div className={style2.btnContainer}>
                         <div>Type the button below if you cleaned the room</div>
-                        <CustomButton onClick={()=>{props.cleanRoomForReducer(props.room.id,props.endDate)}}>Room Is Cleaned</CustomButton>
+                        <CustomButton onClick={()=>{props.cleanRoomForReducer(props.room.id,props.endDate)}}>Room was Cleaned</CustomButton>
                     </div>
                 }
             </div>

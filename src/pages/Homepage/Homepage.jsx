@@ -29,11 +29,9 @@ const Homepage = (props)=>{
             The HotelX is a modern, elegant 5-star hotel overlooking the sea, perfect for a romantic, charming vacation, in the enchanting setting of CityX and the  SeaX.
             </h1>
             <Search getAllSelectedRooms ={props.getAllSelectedRooms }/>
-            
-
 
             <Rooms rooms={props.rooms}/>
-            { props.isBtnShow ? <CustomButton onClick={()=>{ props.handleBTNShow();props.clearRooms(); props.getAllRooms()}}>Go Back</CustomButton>: "Au fort incarcate toate camerele"}
+            { props.isBtnShow ? <CustomButton onClick={()=>{ props.handleBTNShow();props.clearRooms(); props.getAllRooms()}}>Go Back</CustomButton>: "All rooms have been loaded :)"}
         </div>
     )
 }

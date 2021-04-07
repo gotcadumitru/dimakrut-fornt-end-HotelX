@@ -5,8 +5,10 @@ import FormInput from '../../../components/form-input/FormInput';
 import CustomButton from '../../../components/custom-button/CustomButton';
 import { changeMaxNumberOfGuest, changeNewPrice,deleteRoom ,changeNewFacilitati} from '../../../redux/user-reducer';
 import { withRouter } from 'react-router';
+import Loader from '../../../components/Loader/Loader';
 
 const AdminComponent = (props) => {
+
     const [error,setError] = useState('');
     const [formData, handleFormData] = useState({
         numberOfGuestNew: '',
@@ -25,41 +27,56 @@ const AdminComponent = (props) => {
     }
     const changeMaxNumberOfGuestForm = (e)=>{
         e.preventDefault();
-        setError('Succes')
-        props.changeMaxNumberOfGuest(props.room.id,formData.numberOfGuestNew);
-        setTimeout(()=>{
-            setError('')
-        },3000)
-        handleFormData({
-            numberOfGuestNew: '',
-        roomPriceNew: '',
-        })
+        if(formData.numberOfGuestNew!=''){
+
+            props.changeMaxNumberOfGuest(props.room.id,formData.numberOfGuestNew);
+            setError('Date changed successfully')
+            setTimeout(()=>{
+                setError('')
+            },3000)
+            handleFormData({
+                numberOfGuestNew: '',
+                roomPriceNew: '',
+                facilitNew: props.room.facilitati,
+            })
+        }
     }
     const changeNewPriceForm = (e)=>{
         e.preventDefault();
-        setError('Succes')
+        if(formData.roomPriceNew!=''){
         props.changeNewPrice(props.room.id,formData.roomPriceNew);
+        setError('Date changed successfully')
         setTimeout(()=>{
             setError('')
         },3000)
         handleFormData({
             numberOfGuestNew: '',
         roomPriceNew: '',
+        facilitNew: props.room.facilitati,
         })
+    }
     }
     const changeNewFacilitForm = (e)=>{
         e.preventDefault();
-        setError('Succes')
+        if(formData.facilitNew!=''){
         props.changeNewFacilitati(props.room.id,formData.facilitNew);
+        setError('Date changed successfully')
         setTimeout(()=>{
             setError('')
         },3000)
+    }
 
     }
     const deleteRoomBTN = ()=>{
         props.deleteRoom(props.room.id)
         props.history.push('/')
     }
+    // debugger
+    if (!props.room) {
+        return (
+          <Loader/>
+          )
+      }
 
     return (
         <div>
@@ -71,7 +88,7 @@ const AdminComponent = (props) => {
                     id='numberOfGuestNew'
                     value={formData.numberOfGuestNew}
                     changeSubmitData={handleChange}
-                    label='New Max Number Of Guests'
+                    label='New number of guests'
                     required />
                 <CustomButton >Change</CustomButton>
             </form>
@@ -96,7 +113,7 @@ const AdminComponent = (props) => {
                     id='facilitNew'
                     value={formData.facilitNew}
                     changeSubmitData={handleChange}
-                    label='Facilities specified by comma'
+                    label='Specify facilities by comma'
                     required />
 
                 <CustomButton>Change</CustomButton>

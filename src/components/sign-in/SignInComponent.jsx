@@ -44,10 +44,9 @@ class SignIn extends Component{
             </div>
             </form>
             </div>
-            )  
+            )
         }
     }
-
 
 const mapstateToProps = (state)=>{
     return {

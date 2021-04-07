@@ -32,7 +32,6 @@ const MenuItem = (props)=>{
                     backgroundImage: poza.indexOf('jpg') ===-1 ? `url(${poza}.jpg)` : `url(${poza})` ,
                 }}
                 className='background-image'/>
-                
                     {contentText}
                 </div>
         

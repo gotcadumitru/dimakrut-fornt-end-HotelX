@@ -27,13 +27,6 @@ const GuestProfile = (props) => {
         }
     }, [props.user]);
 
-    // useEffect(()=>{
-    //     if (props.user.roomID!= -1) {
-    //         props.setUserRoom(props.user.roomID)
-    //     } else {
-    //         props.setRooms(3, 1);
-    //     }
-    // },[props.user])
 
     const rentedPeriods = props.userRoom ? JSON.parse(props.userRoom.rented) : null;
     const userRoomImg = props.userRoom ? Object.keys(props.userRoom).filter(el => {
@@ -65,14 +58,14 @@ const GuestProfile = (props) => {
             if (dateNow >= props.user.rentPeriod[0] && dateNow <= props.user.rentPeriod[1]) {
                 props.handleDoorStatus(1, props.user.roomID);
                 setQrCodeCamerastatus(false);
-                setError('Usa a Fost deschisa cu succes');
+                setError('The door was successfully opened');
                 setTimeout(() => {
                     setError('');
 
                 }, 3000)
 
             } else {
-                setError('La moment nu inchiriati aceasta camera')
+                setError('You are not renting this room now')
 
             }
         } else {
@@ -82,7 +75,7 @@ const GuestProfile = (props) => {
 
     const clickCloseDoor = () => {
         props.handleDoorStatus(0, props.user.roomID);
-        setError('Usa a fost inchisa cu succes')
+        setError('The door was closed successfully')
         setTimeout(() => {
             setError('')
 
@@ -216,7 +209,7 @@ const GuestProfile = (props) => {
                                     : props.userRoom.cleaned === 1 && props.userRoom.checked_in === 0 ?
                                         <div className={s.waitRentedDay}>
                                             <div className={s.btnContainer}>
-                                                <div>Camera este pregatita, puteti achita:</div>
+                                                <div>Room is ready, you can pay:</div>
                                                 <div className={s.payForm}>
                                                     <h2 className={s.title}>Card Info</h2>
                                                     <form className='sign-up-form' >
@@ -225,7 +218,7 @@ const GuestProfile = (props) => {
                                                         <FormInput type='text' name='email' value='CVV' label='CVV' required />
                                                         <div>
 
-                                                            <div>Suma ce va trebui sa o achitati:  </div>
+                                                            <div>Amount to pay:  </div>
                                                             <div>{(Math.floor((userRentedPeriod[1] - userRentedPeriod[0]) / 86400000)+1) * props.userRoom.pret} Euro</div>
                                                         </div>
                                                         <CustomButton onClick={userCheckInClick}>Pay & Check-In</CustomButton>
@@ -234,8 +227,8 @@ const GuestProfile = (props) => {
                                             </div>
                                         </div>
                                         : props.userRoom.cleaned === 0 && checkIsUserPeriod(rentedPeriods) ?
-                                            <div className={s.waitRentedDay}>Camera este In proces de curatare, reveniti in cateva minute</div>
-                                            : 'Acum e altceva'
+                                            <div className={s.waitRentedDay}>The room is in the process of cleaning, come back in a few minutes</div>
+                                            : 'Else'
 
                         }
 

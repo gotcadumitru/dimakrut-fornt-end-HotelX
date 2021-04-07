@@ -61,7 +61,7 @@ const RoomPage = (props) => {
     })
     
   }
-  
+  // debugger
   if (!props.room) {
     return (
       <Loader/>
@@ -142,7 +142,7 @@ const RoomPage = (props) => {
             {props.user.drept == "cleaner" 
             ? ''
             :<div className={s.aboutItem}>
-              <span className={s.aboutText}>Amount to pay::</span> <span className={s.aboutInfo}>€{daysToPay*props.room.pret}</span>
+              <span className={s.aboutText}>Amount to pay:</span> <span className={s.aboutInfo}>€{daysToPay*props.room.pret}</span>
             </div>}
           </div>
         </div>

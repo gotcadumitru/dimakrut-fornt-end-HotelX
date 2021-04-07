@@ -40,7 +40,7 @@ const UserComponent = (props) => {
             setEroare(`You have selected incorrect number of people`);
 
         } else if (!isFree) {
-            setEroare(`Perioada deja ocupata`);
+            setEroare(`The period is already reserved`);
 
         } else {
             
@@ -68,7 +68,7 @@ const UserComponent = (props) => {
             }
         } else {
             if (isBtnShow) {
-                btnCopponent = 'Deja ai o camera'
+                btnCopponent = 'You already have a room'
             } else {
                 btnCopponent = '';
             }
@@ -76,7 +76,7 @@ const UserComponent = (props) => {
 
     } else {
         if (props.user.userID) {
-            btnCopponent = 'Deja ai o camera';
+            btnCopponent = 'You already have a room';
         } else {
 
             btnCopponent = <Link to='/sign'>Please Log in to continue</Link>
