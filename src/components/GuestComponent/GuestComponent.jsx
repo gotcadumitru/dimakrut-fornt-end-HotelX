@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import CustomButton from '../../../components/custom-button/CustomButton';
-import FormInput from '../../../components/form-input/FormInput';
-import s from './UserComponent.module.scss'
+import CustomButton from '../custom-button/CustomButton';
+import FormInput from '../form-input/FormInput';
+import s from './GuestComponent.module.scss'
 
-const UserComponent = (props) => {
+const GuestComponent = (props) => {
     const [isBtnShow, handleBtnShow] = useState(false);
     const [eroare, setEroare] = useState(props.error);
 
@@ -140,4 +140,4 @@ const UserComponent = (props) => {
         </div>
     )
 }
-export default withRouter(UserComponent);
+export default withRouter(GuestComponent);

@@ -2,7 +2,7 @@ import React from 'react';
 import './forminput.scss';
 
 const FormInput = ({changeSubmitData,label, ...otherProps})=>{
-    // debugger
+    // 
     return (
         <div className={`group ${otherProps.checkRoomInput ? 'checkroom' : ''}`}>
             <input className="form-input" onChange={changeSubmitData} {...otherProps}/>

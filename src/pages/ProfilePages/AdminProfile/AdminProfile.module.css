@@ -5,6 +5,7 @@
     justify-content: space-around;
 }
 .contentItem{
+    margin-top: 50px;
      width: 40%;
 }
 .aboutHotelItems{
@@ -36,12 +37,18 @@
     background-color:coral ;
 }
 table{
+    margin: 0 auto;
     text-align: center;
     border: 1px solid black;
 }
 .red{
     background-color: red;
 }
-/* tr,th,td{
-    border: 1px solid black;
-} */
+
+@media screen and (max-width: 1000px) {
+    .contentItem{
+        margin: 50px auto 0 auto;
+         width: 90%;
+    }
+    
+  }

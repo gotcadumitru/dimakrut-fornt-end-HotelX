@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import style1 from '../../ProfilePages/GuestProfile/GuestProfile.module.css';
+import style1 from '../../pages/ProfilePages/GuestProfile/GuestProfile.module.css';
 import style2 from './CleanerComponent.module.css';
-import OpenImage from '../../../assets/door/Opened.png';
-import CloseImage from '../../../assets/door/Closed.png';
-import { cleanRoomForReducer, handleDoorStatus, handleDoorStatusCleaner } from '../../../redux/user-reducer';
-import QrScanner from '../../../components/QrCodeScanner/QrScanner';
-import CustomButton from '../../../components/custom-button/CustomButton';
+import OpenImage from '../../assets/door/Opened.png';
+import CloseImage from '../../assets/door/Closed.png';
+import { cleanRoomForReducer, handleDoorStatus, handleDoorStatusCleaner } from '../../redux/user-reducer';
+import QrScanner from '../../components/QrCodeScanner/QrScanner';
 import { connect } from 'react-redux';
+import CustomButton from '../custom-button/CustomButton';
 
 const CleanerComponent = (props) => {
 

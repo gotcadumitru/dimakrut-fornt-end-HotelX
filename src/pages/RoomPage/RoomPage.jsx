@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import CleanerComponent from '../../components/CleanerComponent/CleanerComponent';
+import GuestComponent from '../../components/GuestComponent/GuestComponent';
+import AdminComponent from '../../components/AdminComponent/AdminComponent';
 import Loader from '../../components/Loader/Loader';
 import MenuItem from '../../components/menu-item/MenuItem';
 import { getOneRoom, userRentRoom } from '../../redux/room-reducer';
 import {  handleDoorStatusCleaner } from '../../redux/user-reducer';
-import AdminComponent from './AdminComponent/AdminComponent';
-import CleanerComponent from './CleanerComponent/CleanerComponent';
 import s from './RoomPage.module.scss'
-import UserComponent from './UserComponent/UserComponent';
 
 const RoomPage = (props) => {
 
@@ -61,13 +61,13 @@ const RoomPage = (props) => {
     })
     
   }
-  // debugger
+  // 
   if (!props.room) {
     return (
       <Loader/>
       )
   }
-  // debugger
+  // 
   let roomStaus;
   if(props.room.cleaned === 0){
     roomStaus = 'Needs to be cleaned'
@@ -93,13 +93,13 @@ const RoomPage = (props) => {
       <div className={s.roomItem}>
       
       {props.user.drept == "cleaner" 
-      ? <CleanerComponent 
+      ? <CleanerComponent
           getOneRoom={props.getOneRoom} 
           room={props.room}
           endDate={ rentedPeriods.length > 0 ? rentedPeriodsSort[0][1]: 0}/> 
         : props.user.drept == "admin" ? <AdminComponent
         room={props.room}/>
-        : <UserComponent 
+        : <GuestComponent
         userRentRoom={props.userRentRoom} 
         rentPeriods={rentedPeriods ? rentedPeriods : []}  
         nr_max_pers={props.room.nr_max_pers} 

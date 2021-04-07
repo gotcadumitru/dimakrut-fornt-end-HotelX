@@ -12,3 +12,10 @@ const CustomButton = ({children,inverted,disabled, ...otherProps})=>{
     );
 }
 export default CustomButton;
+
+
+
+
+
+
+

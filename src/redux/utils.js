@@ -53,7 +53,7 @@ export const findTotalRoomPeriods = (rooms) => {
 export const findTotalGuestInotel = (rooms) => {
     let totalGuest = 0;
     rooms.forEach(room => {
-        // debugger
+        // 
         if(room.cleaned==1 && room.checked_in==1){
             totalGuest+= room.nr_max_pers;
         }

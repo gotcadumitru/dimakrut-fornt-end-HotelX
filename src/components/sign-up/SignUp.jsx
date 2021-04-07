@@ -46,8 +46,8 @@ const SignUp = (props) => {
                 <FormInput type='text' name='nume' value={userData.nume} changeSubmitData={handleChange} label='Name' required />
                 <FormInput type='text' name='prenume' value={userData.prenume} changeSubmitData={handleChange} label='Surname' required />
                 <FormInput type='email' name='email' value={userData.email} changeSubmitData={handleChange} label='Email' required />
-                <FormInput type='text' name='password' value={userData.password} changeSubmitData={handleChange} label='Password' required />
-                <FormInput type='text' name='confirmPassword' value={userData.confirmPassword} changeSubmitData={handleChange} label='Confirm Password' required />
+                <FormInput type='password' name='password' value={userData.password} changeSubmitData={handleChange} label='Password' required />
+                <FormInput type='password' name='confirmPassword' value={userData.confirmPassword} changeSubmitData={handleChange} label='Confirm Password' required />
                 {props.error.forLogin ===false && props.error.text ? <div className='error'>Error: {props.error.text}</div> : ''}
 
                 <CustomButton type='submit'>Sign Up</CustomButton>

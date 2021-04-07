@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import s from './AdminComponent.module.css'
 import { connect } from 'react-redux';
-import FormInput from '../../../components/form-input/FormInput';
-import CustomButton from '../../../components/custom-button/CustomButton';
-import { changeMaxNumberOfGuest, changeNewPrice,deleteRoom ,changeNewFacilitati} from '../../../redux/user-reducer';
+import { changeMaxNumberOfGuest, changeNewPrice,deleteRoom ,changeNewFacilitati} from './../../redux/user-reducer';
 import { withRouter } from 'react-router';
-import Loader from '../../../components/Loader/Loader';
+import Loader from '../Loader/Loader';
+import FormInput from '../form-input/FormInput';
+import CustomButton from '../custom-button/CustomButton';
 
 const AdminComponent = (props) => {
 
@@ -71,7 +71,7 @@ const AdminComponent = (props) => {
         props.deleteRoom(props.room.id)
         props.history.push('/')
     }
-    // debugger
+    // 
     if (!props.room) {
         return (
           <Loader/>

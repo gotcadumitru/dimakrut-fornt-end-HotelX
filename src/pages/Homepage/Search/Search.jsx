@@ -9,25 +9,35 @@ const Search = (props)=>{
         numberOfGuests:'',
     });
 
+    const [eroare, setEroare] = useState('');
+
+
     const handleChange = (event) => {
         let { value, name } = event.target;
-        // debugger
+        // 
         setDates({ ...dates, [name]: value });
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        props.getAllSelectedRooms(new Date(`${dates.startDay}T14:00:00`).getTime(),new Date(`${dates.endDay}T12:00:00`).getTime(),dates.numberOfGuests)
-        
+
+        const days = Math.floor((Date.parse(dates.endDay) - Date.parse(dates.startDay)) / 86400000);
+        if(days<=0){
+            setEroare('Incorrect number of days')
+        }else{
+            setEroare('')
+
+            props.getAllSelectedRooms(new Date(`${dates.startDay}T14:00:00`).getTime(),new Date(`${dates.endDay}T12:00:00`).getTime(),dates.numberOfGuests)
+            
             setDates(
                 {
                     startDay: '',
                     endDay:'',
                     numberOfGuests:'',
                 })
-
-    }
+                
+            }
+        }
     
 
     return(
@@ -54,7 +64,9 @@ const Search = (props)=>{
                     changeSubmitData={handleChange}
                     label='Number of Guests'
                     required />
+                    
                     <CustomButton>Search</CustomButton>
+                    <div>{eroare}</div>
                 </form>
             </div>
     );

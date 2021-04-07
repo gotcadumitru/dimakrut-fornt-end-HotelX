@@ -46,7 +46,7 @@ const clearUserRoomAction = () => {
 export const setUserRoom = (roomID) =>async (dispatch) => {
   if(roomID!==-1){
     const room = await roomAPI.getOneRoom(roomID);
-    // debugger
+    // 
     dispatch(setUserRoomAction(room));
   }else{
 
