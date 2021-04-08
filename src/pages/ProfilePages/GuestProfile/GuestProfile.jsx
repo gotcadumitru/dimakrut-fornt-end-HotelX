@@ -14,7 +14,7 @@ const GuestProfile = (props) => {
     const [isQrCodeCaneraStarted, setQrCodeCamerastatus] = useState(false);
     let [error, setError] = useState('');
     let [isPayForm, setIsPayForm] = useState(false);
-
+    
     useEffect(() => {
         if (props.user.roomID != -1) {
             props.setUserRoom(props.user.roomID)
@@ -26,7 +26,6 @@ const GuestProfile = (props) => {
             props.clearUserRoom();
         }
     }, [props.user]);
-
 
     const rentedPeriods = props.userRoom ? JSON.parse(props.userRoom.rented) : null;
     const userRoomImg = props.userRoom ? Object.keys(props.userRoom).filter(el => {
@@ -90,7 +89,6 @@ const GuestProfile = (props) => {
                 return true
             }
 
-
         })
 
         if (dateNow >= userRentedPeriod[0] && dateNow <= userRentedPeriod[1]) {
@@ -109,6 +107,14 @@ const GuestProfile = (props) => {
     if (props.userRoom) {
         checkIsUserPeriod(rentedPeriods)
     }
+    const CancelRentComponent = ()=>{
+
+        props.cancelRent(props.userRoom.id);
+        props.history.push('/');
+        return true
+        
+}
+
     return (
         <div>
             { !props.userRoom ? <div>
@@ -158,9 +164,6 @@ const GuestProfile = (props) => {
                                 </div>
                                 </div>
 
-
-                                
-
                             </div>
                         </div>
 
@@ -199,7 +202,9 @@ const GuestProfile = (props) => {
                                 </div>
 
                                 : !checkIsUserPeriod(rentedPeriods)
-                                    ? <div className={s.waitRentedDay}>
+                                    ? new Date().getTime() > userRentedPeriod[1] ? CancelRentComponent()
+                                    :
+                                     <div className={s.waitRentedDay}>
                                         <div>Wait for the time you booked the room.</div>
                                         <div>You have {Math.floor((userRentedPeriod[0] - new Date().getTime()) / 86400000)} more days to wait</div>
                                         <div className={s.btnContainer}>
@@ -245,3 +250,4 @@ const GuestProfile = (props) => {
     )
 }
 export default GuestProfile
+

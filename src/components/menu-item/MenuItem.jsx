@@ -20,7 +20,7 @@ const MenuItem = (props)=>{
         contentText= ''
     }else{
         contentText= <div className="content">
-        <h1 className="title">{nr_max_pers===1 ? 'Small' : nr_max_pers==2 ? 'Medium' : nr_max_pers >=3 ? 'Big' : 'none' } size</h1>
+        <h1 className="title">{props.clasa===0 ? 'Small' : props.clasa==1 ? 'Medium' : props.clasa >=2 ? 'Big' : 'none' } size</h1>
         <span className="subtitle">SHOW</span>
     </div>
 

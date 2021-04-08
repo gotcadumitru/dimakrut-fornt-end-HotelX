@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Rooms from '../../../components/rooms/Rooms';
+import { TableRoom } from '../AdminProfile/AdminProfile';
 import s from './CleanerProfile.module.css';
 
 const CleanerProfile = (props) => {
@@ -17,6 +18,8 @@ const CleanerProfile = (props) => {
             :
             <div className={s.toCleanHeader}>Nothing to clean :)</div>
             }
+            {props.rooms && <TableRoom history={props.history} rooms={props.rooms} />}
+
         </div>
     )
 }

@@ -36,7 +36,7 @@ const GuestComponent = (props) => {
 
         } else if (props.nr_max_pers < props.roomData.nrPersoane) {
             setEroare(`You have selected too many people, maximum in this room:${props.nr_max_pers}`);
-        } else if (0 >= props.roomData.nrPersoane || !props.roomData.nrPersoane) {
+        } else if (0 >= props.roomData.nrPersoane || !props.roomData.nrPersoane ) {
             setEroare(`You have selected incorrect number of people`);
 
         } else if (!isFree) {
@@ -96,6 +96,8 @@ const GuestComponent = (props) => {
                     value={props.roomData.nrPersoane}
                     changeSubmitData={handleChange}
                     label='Number of Pers'
+                    min={0}
+                    max={10}
                     required />
                 Start Day:
                 <FormInput

@@ -10,6 +10,7 @@ const AdminProfile = (props) => {
             props.clearRooms();
         }
     }, [])
+    const [error,setError] = useState('');
     const [newRoomData, setnewRoomData] = useState(
         {
             pret: '',
@@ -33,6 +34,11 @@ const AdminProfile = (props) => {
     }
     const handleSubmitEmailText = (e)=>{
         e.preventDefault();
+        setError("Email was send")
+        setTimeout(()=>{
+            setError("")
+
+        },5000)
         props.SendEmail(emailText)
         setEmailText({
             subject: '',
@@ -62,18 +68,6 @@ const AdminProfile = (props) => {
             })
 
     }
-    const tableRooms = props.rooms.map(room =>{
-        return(
-
-        <tr onClick={()=>{props.history.push(`/rooms/${room.id}`)}} className={`${s.colorTr}  ${room.rented.length>5 ? room.checked_in===1 ? s.blue : s.green : s.white} ${room.cleaned===1 ? '' : s.yellow}` }>
-            <td>{room.id}</td>
-            <td>{room.nr_max_pers}</td>
-            <td>{room.clasa}</td>
-            <td>{room.facilitati}</td>
-            <td>{room.pret}</td>
-        </tr>
-    )
-    })
     return (
         <div>
 
@@ -96,27 +90,9 @@ const AdminProfile = (props) => {
                 </div>
             </div>
 
-            <div className={s.contentItem}>
-            <h2 className='title'>Realtime Hotel Rooms Status</h2>
-
-            <table>
-            <th>Number:</th>
-            <th>Max Number of Guest : </th>
-            <th>Size:</th>
-            <th>Facilities:</th>
-            <th>Price:</th>
-
-                
-            {tableRooms}
-            <td className={s.blue}>Live Now</td>
-            <td className={s.yellow}>Need to Clean </td>
-            <td className={s.white}>Free</td>
-            <td className={s.green}>The room has reservations</td>
-            <td className={s.red}>Error</td>
-            </table>
-        </div>
+           
         
-
+            <TableRoom history={props.history} rooms={props.rooms} />
 
        
         
@@ -152,6 +128,7 @@ const AdminProfile = (props) => {
                         <FormInput type='textarea' name='content' value={emailText.content} changeSubmitData={handleChangeEmailText} label='Email text' required />
                         <CustomButton type='submit'>Send Email</CustomButton>
                     </form>
+                    <div>{error}</div>
                 </div>
             </div>
         </div>
@@ -165,3 +142,37 @@ const AdminProfile = (props) => {
     )
 }
 export default AdminProfile
+
+export const TableRoom = (props)=>{
+    return (
+        <div className={s.contentItem}>
+        <h2 className='title'>Realtime Hotel Rooms Status</h2>
+
+        <table>
+        <th>Number:</th>
+        <th>Max Number of Guest : </th>
+        <th>Size:</th>
+        <th>Facilities:</th>
+        <th>Price:</th>
+
+            
+        { props.rooms.map(room =>{
+        return(
+        <tr onClick={()=>{props.history.push(`/rooms/${room.id}`)}} className={`${s.colorTr}  ${room.rented.length>5 ? room.checked_in===1 ? s.blue : s.green : s.white} ${room.cleaned===1 ? '' : s.yellow}` }>
+            <td>{room.id}</td>
+            <td>{room.nr_max_pers}</td>
+            <td>{room.clasa}</td>
+            <td>{room.facilitati}</td>
+            <td>{room.pret}</td>
+        </tr>
+    )
+    })}
+        <td className={s.blue}>Live Now</td>
+        <td className={s.yellow}>Need to Clean </td>
+        <td className={s.white}>Free</td>
+        <td className={s.green}>The room has reservations</td>
+        <td className={s.red}>Error</td>
+        </table>
+    </div>
+    )
+}

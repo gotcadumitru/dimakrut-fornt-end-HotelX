@@ -136,6 +136,7 @@ const RoomPage = (props) => {
             <div className={s.aboutItem}>
               <span className={s.aboutText}>Room size:</span> <span className={s.aboutInfo}>{props.room.clasa === 0 ? 'SMALL' : props.room.clasa === 1 ? 'MEDIUM' : props.room.clasa === 2 ? 'BIG' : ''} Size</span>
             </div>
+
             <div className={s.aboutItem}>
               <span className={s.aboutText}>Facilities:</span> <span className={s.aboutInfo}>{props.room.facilitati.split(',').map(item=><div>{item}</div>)} </span>
             </div>

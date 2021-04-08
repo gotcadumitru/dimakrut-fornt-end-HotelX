@@ -121,6 +121,7 @@ export const userRentRoom = (startDay,endDay,userId,roomId) =>async (dispatch) =
   if(user){
     let data = await roomAPI.userRentRoom(user.email,user.password,startDay,endDay,userId,roomId);
     if(data.data===true){
+      getUserData()(dispatch)
       dispatch(setRentStatusAction('The reservation was made successfully, in 10 seconds you will be redirected to the main page. You can find the reservation details in the profile page'));
     }else{
       dispatch(setRentStatusAction('A fost intampinata o eroare, va rugam sa mai incercati o data sa bronati camera'));

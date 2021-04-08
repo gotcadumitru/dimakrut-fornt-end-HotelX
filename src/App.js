@@ -18,7 +18,9 @@ const App =(props) => {
 
   },[])
   return (
-    <div>
+      <div className='page-container'>
+        <div className='content-wrap'>
+
       <BrowserRouter>
 
       <Header/>
@@ -30,10 +32,11 @@ const App =(props) => {
       <Route exact path='/sign' render={()=>props.userID ? (<Redirect to='/'/>) : (<Signinup/>) }/>
       <Route exact path='/rooms/:roomId' component={RoomPage}/>
 
-      <Footer/>
       </BrowserRouter>
 
     </div>
+      <Footer />
+</div>
   );
 }
 const mapStateToProps = (state)=>{

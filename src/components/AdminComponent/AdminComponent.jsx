@@ -27,8 +27,9 @@ const AdminComponent = (props) => {
     }
     const changeMaxNumberOfGuestForm = (e)=>{
         e.preventDefault();
-        if(formData.numberOfGuestNew!=''){
-
+        if(formData.numberOfGuestNew<0){
+            setError(`You have selected incorrect number of people`);
+        }else if(formData.numberOfGuestNew!='' ){
             props.changeMaxNumberOfGuest(props.room.id,formData.numberOfGuestNew);
             setError('Date changed successfully')
             setTimeout(()=>{
@@ -43,7 +44,9 @@ const AdminComponent = (props) => {
     }
     const changeNewPriceForm = (e)=>{
         e.preventDefault();
-        if(formData.roomPriceNew!=''){
+        if(formData.roomPriceNew<0){
+            setError(`You have selected incorrect price`);
+        }else if(formData.roomPriceNew!=''){
         props.changeNewPrice(props.room.id,formData.roomPriceNew);
         setError('Date changed successfully')
         setTimeout(()=>{
