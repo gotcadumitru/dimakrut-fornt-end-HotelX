@@ -4,7 +4,7 @@ import axios from "axios"
 
 
 const instance = axios.create({
-    baseURL: "/",
+    baseURL: "https://quiet-wildwood-41923.herokuapp.com/https://atc2021.bfg-e.tech/",
 })
 
 

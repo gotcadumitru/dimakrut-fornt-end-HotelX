@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import {  clearRooms, getAllRooms } from "../../../redux/room-reducer";
 import { addNewRoom ,SendEmail} from "../../../redux/user-reducer";
 import { findTotalCapacity, findTotalGuestInotel, findTotalRoomPeriods, roomsTocleanSelector, } from "../../../redux/utils";
@@ -22,4 +23,4 @@ const mapStateToProps = (state)=>{
     }
 }
 
-export default connect(mapStateToProps,{SendEmail:SendEmail, getAllRooms:getAllRooms,addNewRoom:addNewRoom,clearRooms:clearRooms})(AdminProfile);
+export default withRouter(connect(mapStateToProps,{SendEmail:SendEmail, getAllRooms:getAllRooms,addNewRoom:addNewRoom,clearRooms:clearRooms})(AdminProfile));

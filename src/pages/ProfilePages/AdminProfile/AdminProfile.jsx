@@ -65,7 +65,7 @@ const AdminProfile = (props) => {
     const tableRooms = props.rooms.map(room =>{
         return(
 
-        <tr className={`${s.colorTr}  ${room.rented.length>5 ? room.checked_in===1 ? s.blue : s.green : s.white} ${room.cleaned===1 ? '' : s.yellow}` }>
+        <tr onClick={()=>{props.history.push(`/rooms/${room.id}`)}} className={`${s.colorTr}  ${room.rented.length>5 ? room.checked_in===1 ? s.blue : s.green : s.white} ${room.cleaned===1 ? '' : s.yellow}` }>
             <td>{room.id}</td>
             <td>{room.nr_max_pers}</td>
             <td>{room.clasa}</td>
