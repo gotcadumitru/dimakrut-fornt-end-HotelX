@@ -13,7 +13,6 @@ import Signinup from './pages/SignInUp/Signinup';
 import { initializeApp } from './redux/app-reducer';
 
 const App =(props) => {
-
   useEffect(async()=>{
     await props.initializeApp();
 

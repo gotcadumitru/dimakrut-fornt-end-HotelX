@@ -133,7 +133,7 @@ export const roomAPI = {
     },
     async sendEmail(email,password,emailText) {
         
-        const resp = await instance.get(`api/sendMail?email=${email}&parola=${password}&mesaj=${emailText.content}&subiect=${emailText.subject}`);
+        const resp = await axios.get(`https://quiet-wildwood-41923.herokuapp.com/http://cucubau.bfg-e.tech/api/sendMail?email=${email}&parola=${password}&mesaj=${emailText.content}&subiect=${emailText.subject}`);
     
         return resp.data;
     },
